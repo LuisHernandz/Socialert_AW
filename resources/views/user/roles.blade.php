@@ -15,7 +15,10 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <x-adminlte-button label="Nuevo" theme="primary" icon="fas fa-plus-circle" class="float-right" data-toggle="modal" data-target="#modalPurple"  />
+            @can('crear roles')
+                <x-adminlte-button label="Nuevo" theme="primary" icon="fas fa-plus-circle" class="float-right" data-toggle="modal" data-target="#modalPurple"  />
+            @endcan
+           
         </div>
         <div class="card-body">
             @php
@@ -40,14 +43,20 @@
                         <td>{{$rol->id}}</td>
                         <td>{{$rol->name}}</td>
                         <td>
-                            <a class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit" href="{{route('roles.edit', $rol)}}">
-                                <i class="fa fa-lg fa-fw fa-pen"></i>
-                            </a>
-                            <form action="{{route('roles.destroy', $rol)}}" method="POST" class="formEliminar d-inline">
-                                @csrf
-                                @method('delete')
-                                {!! $btnDelete !!} 
-                            </form>
+                            @can('editar roles')
+                                <a class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit" href="{{route('roles.edit', $rol)}}">
+                                    <i class="fa fa-lg fa-fw fa-pen"></i>
+                                </a>
+                            @endcan
+                            
+                            @can('eliminar roles')
+                                <form action="{{route('roles.destroy', $rol)}}" method="POST" class="formEliminar d-inline">
+                                    @csrf
+                                    @method('delete')
+                                    {!! $btnDelete !!} 
+                                </form>
+                            @endcan
+
                             {!! $btnDetails !!}
                         </td>
                     </tr>

@@ -10,8 +10,9 @@ class AdministradorController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware('can:gestionar_usuarios')->only('index');
-        // $this->middleware('can:gestionar_usuarios')->only('create');
+        $this->middleware('can:crear usuarios')->only('create');
+        $this->middleware('can:editar usuarios')->only('edit');
+        $this->middleware('can:eliminar usuarios')->only('delete');
     }
     public function index()
     {

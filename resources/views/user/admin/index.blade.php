@@ -15,9 +15,12 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-           <a href="{{route('admins.create')}}">
-                 <x-adminlte-button label="Nuevo" theme="primary" icon="fas fa-plus-circle" class="float-right" data-toggle="modal" data-target="#modalPurple"/>
-           </a>
+            @can('crear usuarios')
+                <a href="{{route('admins.create')}}">
+                    <x-adminlte-button label="Nuevo" theme="primary" icon="fas fa-plus-circle" class="float-right" data-toggle="modal" data-target="#modalPurple"/>
+                </a>
+            @endcan
+
         </div>
         <div class="card-body">
             @php
@@ -54,11 +57,13 @@
                             @endif
                         </td>
                         <td>
-                            <a class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit" href="{{route('admins.edit', $administrador)}}">
-                                <i class="fa fa-lg fa-fw fa-pen"></i>
-                            </a>
+                            @can('editar usuarios')
+                                <a class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit" href="{{route('admins.edit', $administrador)}}">
+                                    <i class="fa fa-lg fa-fw fa-pen"></i>
+                                </a>
+                            @endcan
                             {!! $btnDetails !!}
-                            @can('Eliminar')
+                            @can('eliminar usuarios')
                                 <form action="{{route('admins.destroy', $administrador)}}" method="POST" class="formEliminar d-inline">
                                     @csrf
                                     @method('delete')
