@@ -1,10 +1,10 @@
 <x-form-section submit="updateProfileInformation">
     <x-slot name="title">
-        {{ __('Profile Information') }}
+        {{-- {{ __('Profile Information') }} --}}
     </x-slot>
 
     <x-slot name="description">
-        {{ __('Update your account\'s profile information and email address.') }}
+        {{-- {{ __('Update your account\'s profile information and email address.') }} --}}
     </x-slot>
 
     <x-slot name="form">
@@ -64,7 +64,7 @@
             <x-label for="email" value="{{ __('Email') }}" />
             <x-input id="email" type="email" class="mt-1 block w-full" wire:model="state.email" required autocomplete="username" />
             <x-input-error for="email" class="mt-2" />
-
+{{-- 
             @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::emailVerification()) && ! $this->user->hasVerifiedEmail())
                 <p class="text-sm mt-2">
                     {{ __('Your email address is unverified.') }}
@@ -79,12 +79,12 @@
                         {{ __('A new verification link has been sent to your email address.') }}
                     </p>
                 @endif
-            @endif
+            @endif --}}
         </div>
     </x-slot>
 
-    <x-slot name="actions">
-        <x-action-message class="me-3" on="saved">
+    <x-slot name="actions" >
+        <x-action-message class="me-3" on="saved" style="background-color:white;">
             {{ __('Saved.') }}
         </x-action-message>
 

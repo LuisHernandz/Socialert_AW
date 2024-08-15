@@ -2,7 +2,14 @@
 @section('title', 'Administradores')
  
 @section('content_header')
-    <h1><b>ADMINISTRADORES</b></h1> 
+    <h1><b>USUARIOS</b></h1>
+
+    @if (session())
+        @if (session('message') == 'ok')
+            <x-adminlte-card title="Rol asignado!" theme="info" icon="fas fa-lg fa-bell" removable style="font-size: .9rem" class="my-2">
+            </x-adminlte-card>
+        @endif
+    @endif
 @stop
 
 @section('content')
@@ -16,8 +23,8 @@
             @php
             $heads = [
                 'ID',
-                'Nombre',
                 'Apellidos',
+                'Nombre',
                 'Email',
                 'Rol',
                 ['label' => 'Acciones', 'no-export' => true, 'width' => 15],
@@ -36,8 +43,8 @@
                 @foreach($administradores as $administrador)
                     <tr>
                         <td>{{$administrador->id}}</td>
-                        <td>{{$administrador->nombre}}</td>
-                        <td>{{$administrador->apellidos}}</td>
+                        <td>{{$administrador->lastname}}</td>
+                        <td>{{$administrador->name}}</td>
                         <td>{{$administrador->email}}</td>
                         <td>
                             @if(!empty($administrador['roles']) && isset($administrador['roles'][0]))

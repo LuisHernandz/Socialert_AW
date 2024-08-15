@@ -30,7 +30,15 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $role = Role::create(['name' => $request->nombre]);
+        // return $request;
+        // $role = Role::create(['name' => $request->nombre]);
+        // $role = Role::create([
+        //     'name' => $request->nombre,
+        // ]);
+
+        $rol = new Role();
+        $rol->name = $request->nombre;
+        $rol->save();
         return back();
     }
 
@@ -49,7 +57,7 @@ class RoleController extends Controller
     {
         $role = Role::find($id);
         $permisos = Permission::all();
-        return view('user.rolePermiso', compact('role', 'permisos'));
+        return view('user.rolePermiso', compact('role', 'permisos')); 
     }
 
     /**
@@ -59,7 +67,7 @@ class RoleController extends Controller
     {
         $role = Role::find($id);
         $role->permissions()->sync($request->permisos); // Sincronizar permiso al rol
-        return redirect()->route('roles.edit', $role);
+        return redirect()->route('roles.index', $role)->with('message', 'ok');
     }
 
     /**

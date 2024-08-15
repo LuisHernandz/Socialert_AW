@@ -1,19 +1,27 @@
 @extends('adminlte::page', ['iFrameEnabled' => false])
 {{-- @extends('adminlte::page', ['iFrameEnabled' => true]) --}}
 
-@section('title', 'Dashboard')
+@section('title', 'Asignar permisos')
 
 @section('content_header')
-    <h1>Roles & Permisos</h1> 
+    {{-- <h1>Roles & Permisos</h1>  --}}
+    <br>
 @stop
 
 @section('content')
-    <div class="card">
-        <div class="card-header">
-            <p>{{$role->name}}</p>
+    <div class="card card-primary">
+        <div class="card-header d-flex justify-content-between">
+            <h3 class="card-title" style="flex-grow: 1;"><b>Asignar Permisos a Rol</b></h3>
+
+            <div style="flex-grow: 1;" class="text-right">
+                <a href="{{route('roles.index')}}">Regresar</a>   
+            </div>
         </div>
         <div class="card-body">
-            <h5>Lista de permisos</h5>
+            <div>
+                <p><b>Rol:</b> {{$role->name}}</p>
+            </div>
+            <h5><b>PERMISOS:</b></h5>
             {!! Form::model($role, ['route' => ['roles.update', $role], 'method'=>'put']) !!}
             @foreach ($permisos as $permiso)
                 <div>
@@ -27,6 +35,10 @@
             {!! Form::close() !!}
         </div>
     </div>
+
+
+
+
 @stop
 
 @section('css')

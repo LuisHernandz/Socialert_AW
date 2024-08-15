@@ -14,6 +14,7 @@
                 'Apellidos',
                 'Nombre',
                 'Email',
+                'Rol',
                 // ['label' => 'Phone', 'width' => 20],
                 ['label' => 'Acciones', 'no-export' => true, 'width' => 20],
             ];
@@ -37,9 +38,10 @@
                 @foreach($clientes as $cliente)
                     <tr>
                         <td>{{$cliente->id}}</td>
-                        <td>{{$cliente->apellido}}</td>
-                        <td>{{$cliente->nombre}}</td>
+                        <td>{{$cliente->lastname}}</td>
+                        <td>{{$cliente->name}}</td>
                         <td>{{$cliente->email}}</td>
+                        <td></td>
                         <td>
                             <a class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit" href="{{route('administradores.edit', $cliente)}}">
                                 <i class="fa fa-lg fa-fw fa-pen"></i>

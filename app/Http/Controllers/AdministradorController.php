@@ -10,7 +10,8 @@ class AdministradorController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('can:Crear')->only('create');
+        // $this->middleware('can:gestionar_usuarios')->only('index');
+        // $this->middleware('can:gestionar_usuarios')->only('create');
     }
     public function index()
     {
@@ -27,8 +28,8 @@ class AdministradorController extends Controller
     public function store(Request $request)
     {
         $validacion = $request->validate([
-            'nombre' => 'required|string|max:50',
-            'apellidos' => 'required|string|max:50',
+            'name' => 'required|string|max:50', 
+            'lastname' => 'required|string|max:50',
             'email' => 'required|string|email|max:50|unique:users',
             'password' => [
                 'required',
@@ -43,8 +44,8 @@ class AdministradorController extends Controller
         ]); 
 
         $administrador = new User();
-        $administrador->nombre = $request->nombre;
-        $administrador->apellidos = $request->apellidos;
+        $administrador->name = $request->name;
+        $administrador->lastname = $request->lastname;
         $administrador->email = $request->email;
         $administrador->password = $request->password;
         $administrador->save();
@@ -63,7 +64,7 @@ class AdministradorController extends Controller
     {
         $administrador = User::find($id);
         $administrador->roles()->sync($request->roles);
-        return redirect()->route('admins.index', $administrador);
+        return redirect()->route('admins.index', $administrador)->with('message', 'ok');
     }
 
     public function destroy(string $id)

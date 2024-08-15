@@ -15,8 +15,12 @@
 @endif
 
       <div class="card card-primary">
-        <div class="card-header">
-            <h3 class="card-title"><b>Nuevo Administrador</b></h3>
+        <div class="card-header d-flex justify-content-between">
+            <h3 class="card-title" style="flex-grow: 1;"><b>Nuevo Usuario</b></h3>
+
+            <div style="flex-grow: 1;" class="text-right">
+                <a href="{{route('admins.index')}}">Regresar</a>   
+            </div>
         </div>
         
         
@@ -25,7 +29,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm">
-                        <x-adminlte-input name="nombre" label="Nombre" label-class="text-gray" value="{{old('nombre')}}">
+                        <x-adminlte-input name="name" label="Nombre" label-class="text-gray" value="{{old('name')}}">
                             <x-slot name="prependSlot">
                                 <div class="input-group-text">
                                     <i class="fas fa-user text-gray"></i>
@@ -33,7 +37,7 @@
                             </x-slot>
                         </x-adminlte-input>
 
-                        <x-adminlte-input name="apellidos" label="Apellidos" label-class="text-gray" value="{{old('apellidos')}}">
+                        <x-adminlte-input name="lastname" label="Apellidos" label-class="text-gray" value="{{old('lastname')}}">
                             <x-slot name="prependSlot">
                                 <div class="input-group-text">
                                     <i class="fas fa-user text-gray"></i>
@@ -74,6 +78,16 @@
                                 </div>
                             </x-slot>
                         </x-adminlte-input>
+
+                        <p>La contraseña debe contener:</p>
+                        <ul>
+                            <li>Mínimo de 8 caracteres.</li>
+                            <li>Una combinación de letras y mayúsculas.</li>
+                            <li>Al menos un número (0-9)..</li>
+                            <li>Carácteres especiales.</li>
+                        </ul>
+                        
+        
                     </div>
                   </div>
             </div>

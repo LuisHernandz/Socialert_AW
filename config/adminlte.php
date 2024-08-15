@@ -317,6 +317,7 @@ return [
             'text' => 'Dashboard',
             'url' => '/',
             'icon' => 'fas fa-fw fa-home',
+            'can' => ['gestionar usuarios'],  
         ],
         /*
         [
@@ -328,13 +329,13 @@ return [
         ],
         */
         ['header' => 'GESTIÓN DE USUARIOS',
-            'can' => 'Gestion Usuarios'    
+            'can' => ['gestionar usuarios', 'consultar usuarios'],    
         ],
         [
             'text' => 'Usuarios Web',
             'route' => 'admins.index',
             'icon' => 'fas fa-fw fa-user',
-            'can' => 'Gestion Usuarios'    
+            'can' => ['gestionar usuarios', 'consultar usuarios'],  
         ],
         // [
         //     'text' => 'Administrador',
@@ -354,31 +355,31 @@ return [
             'text' => 'Ciudadanos',
             'route' => '',
             'icon' => 'fas fa-fw fa-user',
-            'can' => 'Gestion Usuarios'    
+            'can' => ['gestionar ciudadanos', 'consultar ciudadanos'],     
         ],
         [
             'text' => 'Privilegios',
             'icon' => 'fas fa-fw fa-key',
-            'can' => 'Gestion Usuarios',    
+            'can' => ['gestionar ciudadanos', 'consultar ciudadanos'],     
             'submenu' => [
                 [
                     'text' => 'Roles',
                     'route' => 'roles.index',
                 ],
-                [
-                    'text' => 'Permisos',
-                    'route' => 'permisos.index',
-                ],
             ],
         ],
-        ['header' => 'GESTIÓN DE REPORTES'],
+        ['header' => 'GESTIÓN DE REPORTES',
+        'can' => ['gestionar reportes', 'consultar reportes'],  
+        ],
         [
             'text' => 'Reportes',
             'icon' => 'fas fa-fw fa-paper-plane',
+            'can' => ['gestionar reportes', 'consultar reportes'],    
             'submenu' => [
                 [
                     'text' => 'Todas',
                     'route' => '',
+                    'can' => ['gestionar reportes', 'consultar reportes'],  
                 ],
                 [
                     'text' => 'Atendidas',
@@ -386,11 +387,13 @@ return [
                     'route' => '',
                     'label' => '2 nuevos',
                     'label_color' => 'success',
+                    'can' => ['gestionar reportes', 'consultar reportes'],  
                 ],
                 [
                     'text' => 'Pendientes',
                     'icon_color' => 'yellow',
                     'route' => '',
+                    'can' => ['gestionar reportes', 'consultar reportes'],  
                 ],
             ],
         ],
@@ -399,6 +402,7 @@ return [
             'text' => 'Backup (Respaldo)',
             'route' => '',
             'icon' => 'fas fa-fw fa-server',
+            'can' => ['gestionar usuarios'],    
         ],
         // [
         //     'text' => 'important',

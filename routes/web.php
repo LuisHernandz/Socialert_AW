@@ -18,10 +18,8 @@ Route::middleware([
     Route::get('/', function () {
         return view('dashboard');
     })->name('dashboard');
-    Route::get('/profile', [UsuarioController::class, 'profile'])->name('dashboard');
-    Route::resource('/administradores', ClienteController::class)->names('administradores');
-    Route::resource('/admins', AdministradorController::class)->names('admins');
+    Route::get('/profile', [UsuarioController::class, 'profile'])->name('profile');
+    Route::resource('/usuarios', AdministradorController::class)->names('admins');
     Route::resource('/roles', RoleController::class)->names('roles');
-    Route::resource('/permisos', PermisoController::class)->names('permisos');
 });
 

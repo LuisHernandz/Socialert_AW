@@ -1,19 +1,27 @@
 @extends('adminlte::page', ['iFrameEnabled' => false])
 {{-- @extends('adminlte::page', ['iFrameEnabled' => true]) --}}
 
-@section('title', 'Dashboard')
+@section('title', 'Asignar rol')
 
 @section('content_header')
-    <h1>Asignar Rol</h1> 
+    {{-- <h1><b>ASIGNAR ROL</b></h1>  --}}
+    <br>
 @stop
 
 @section('content')
-    <div class="card">
-        <div class="card-header">
-            <p>{{$administrador->nombre}}</p>
+    <div class="card card-primary">
+        <div class="card-header d-flex justify-content-between">
+            <h3 class="card-title" style="flex-grow: 1;"><b>Asignar Rol</b></h3>
+
+            <div style="flex-grow: 1;" class="text-right">
+                <a href="{{route('admins.index')}}">Regresar</a>   
+            </div>
         </div>
         <div class="card-body">
-            <h5>Lista de permisos</h5>
+            <div>
+                <p><b>Usuario:</b> {{$administrador->name}}  {{$administrador->lastname}} </p>
+            </div>
+            <h5><b>ROLES</b></h5>
             {!! Form::model($administrador, ['route' => ['admins.update', $administrador], 'method'=>'put']) !!}
             @foreach ($roles as $role)
                 <div>

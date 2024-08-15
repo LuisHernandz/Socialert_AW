@@ -9,9 +9,7 @@
 
 @section('content')
     <p>Bienvenido al panel del Administrador.</p>
-
-
-
+    
     <div class="row">
         <div class="col-lg-4 col-6">
             <x-adminlte-info-box title="528" text="Usuarios Registrados" icon="fas fa-lg fa-user-plus text-primary"
@@ -51,5 +49,5 @@
 @stop
 
 @section('js')
-    <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
+    {{-- <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script> --}}
 @stop

@@ -2,13 +2,20 @@
 @section('title', 'Roles')
 
 @section('content_header')
-    <h1>ROLES</h1> 
+    <h1><b>ROLES</b></h1> 
+
+    @if (session())
+        @if (session('message') == 'ok')
+            <x-adminlte-card title="Permisos asignados!" theme="info" icon="fas fa-lg fa-bell" removable style="font-size: .9rem" class="my-2">
+            </x-adminlte-card>
+        @endif
+    @endif
 @stop
 
 @section('content')
     <div class="card">
         <div class="card-header">
-            <x-adminlte-button label="Nuevo" theme="primary" icon="fas fa-key" class="float-right" data-toggle="modal" data-target="#modalPurple"  />
+            <x-adminlte-button label="Nuevo" theme="primary" icon="fas fa-plus-circle" class="float-right" data-toggle="modal" data-target="#modalPurple"  />
         </div>
         <div class="card-body">
             @php
@@ -19,11 +26,11 @@
             ];
 
             $btnEdit = '';
-            $btnDelete = '<button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete">
+            $btnDelete = '<button type="submit" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Delete">
                             <i class="fa fa-lg fa-fw fa-trash"></i>
                         </button>';
-            $btnDetails = '<button class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
-                            <i class="fa fa-lg fa-fw fa-eye"></i>
+            $btnDetails = '<button class="btn btn-xs btn-default text-primary mx-1 shadow" title="Details">
+                            <i class="fa fa-lg fa-fw fa-info-circl"></i>
                         </button>';
             @endphp
 
@@ -50,7 +57,7 @@
     </div>
 
     {{-- Themed --}}
-    <x-adminlte-modal id="modalPurple" title="Nuevo Rol" theme="primary" icon="fas fa-bolt" size='lg' disable-animations>
+    <x-adminlte-modal id="modalPurple" title="Nuevo Rol" theme="primary" icon="fas fa-plus-circle" size='lg' disable-animations>
         <form action="{{route('roles.store')}}" method="POST">
             @csrf
             <div class="card-body">
@@ -71,16 +78,26 @@
 @stop
 
 @section('css')
-    <style>
-        aside{
-            /* background-color: #00162C !important; */
-            background-color: #08233d !important;
-        }
+<style>
+    aside{
+        /* background-color: #00162C !important; */
+        background-color: #08233d !important;
+    }
 
-        .layout-navbar-fixed .wrapper .sidebar-dark-primary .brand-link:not([class*="navbar"]){
-            background-color: transparent !important;
-        }
-    </style>
+    .layout-navbar-fixed .wrapper .sidebar-dark-primary .brand-link:not([class*="navbar"]){
+        background-color: transparent !important;
+    }
+
+    .title-custom {
+        font-size: 18px; 
+    }
+
+    .btn-default{
+        border: none;
+        background-color: inherit;
+        box-shadow: none !important;
+    }
+</style>
 @stop
 
 @section('js')
