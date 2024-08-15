@@ -15,7 +15,7 @@ return [
     */
 
     'title' => '',
-    'title_prefix' => 'Socialert |',
+    'title_prefix' => 'Gestión de reportes |',
     'title_postfix' => '',
 
     /*
@@ -63,7 +63,8 @@ return [
     |
     */
 
-    'logo' => '<b>CHIA</b>PAS',
+    // 'logo' => '<b>CHIA</b>PAS',
+    'logo' => '<span style="font-weight: 600;">OCOSINGO CHIAPAS</span>',
     'logo_img' => 'vendor/adminlte/dist/img/LogoPMChiapas.png',
     // 'logo_img_class' => 'brand-image img-circle elevation-3 img-fluid',
     'logo_img_class' => 'brand-image img-circle img-fluid',
@@ -330,7 +331,7 @@ return [
             'can' => 'Gestion Usuarios'    
         ],
         [
-            'text' => 'Administradores',
+            'text' => 'Usuarios Web',
             'route' => 'admins.index',
             'icon' => 'fas fa-fw fa-user',
             'can' => 'Gestion Usuarios'    
@@ -349,12 +350,6 @@ return [
         //         ],
         //     ],
         // ],
-        [
-            'text' => 'Autoridades',
-            'route' => '',
-            'icon' => 'fas fa-fw fa-user',
-            'can' => 'Gestion Usuarios'    
-        ],
         [
             'text' => 'Ciudadanos',
             'route' => '',

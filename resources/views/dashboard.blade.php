@@ -4,14 +4,35 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Dashboard</h1> 
+    <h1><b>Dashboard</b></h1> 
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+    <p>Bienvenido al panel del Administrador.</p>
 
-    <x-adminlte-info-box title="528" text="User Registrations" icon="fas fa-lg fa-user-plus text-primary"
-    theme="gradient-primary" icon-theme="white"/>
+
+
+    <div class="row">
+        <div class="col-lg-4 col-6">
+            <x-adminlte-info-box title="528" text="Usuarios Registrados" icon="fas fa-lg fa-user-plus text-primary"
+            theme="gradient-primary" icon-theme="white"/>
+        </div>
+        <div class="col-lg-4 col-6">
+            <x-adminlte-info-box title="528" text="Alertas rápidas emitidas" icon="fas fa-location-arrow text-danger"
+            theme="danger" icon-theme="white"/>
+        </div>
+        <div class="col-lg-4 col-6">
+            <x-adminlte-info-box title="528" text="Descargas de la aplicación móvil" icon="fas fa-lg fa-download text-purple"
+            theme="purple" icon-theme="white"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-6">
+            <x-adminlte-info-box title="56/60" text="Reportes Atendidos" icon="far fa-check-circle text-success"
+            theme="success" icon-theme="white" progress=60 progress-theme="teal"
+            description="56% reportes atendidos correctamente"/>
+        </div>
+    </div>
 @stop
 
 @section('css')

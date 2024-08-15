@@ -160,13 +160,13 @@ sup {
 }
 
 a {
-  color: #007bff;
+  color: #2C5FAA;
   text-decoration: none;
   background-color: transparent;
 }
 
 a:hover {
-  color: #0056b3;
+  color: #275292;
   text-decoration: none;
 }
 
@@ -2585,6 +2585,19 @@ fieldset:disabled a.btn {
   background-color: #007bff;
   border-color: #007bff;
   box-shadow: none;
+}
+
+.btn-primary-s {
+  color: #fff;
+  background-color: #2C5FAA;
+  border-color: #2C5FAA;
+  box-shadow: none;
+}
+
+.btn-primary-s:hover {
+  color: #fff;
+  background-color: #275292;
+  border-color: #275292;
 }
 
 .btn-primary:hover {
@@ -34959,10 +34972,11 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
 
 .login-logo,
 .register-logo {
-  font-size: 2.1rem;
-  font-weight: 300;
+  font-size: 1rem;
+  font-weight: 600;
   margin-bottom: .9rem;
   text-align: center;
+  line-height: 1rem;
 }
 
 .login-logo a,
