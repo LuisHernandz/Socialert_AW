@@ -360,7 +360,7 @@ return [
         [
             'text' => 'Privilegios',
             'icon' => 'fas fa-fw fa-key',
-            'can' => ['gestionar ciudadanos', 'consultar ciudadanos'],     
+            'can' => ['gestionar roles', 'consultar roles'],     
             'submenu' => [
                 [
                     'text' => 'Roles',

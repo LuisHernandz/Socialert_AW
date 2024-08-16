@@ -17,7 +17,7 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'gestionar usuarios', 'guard_name' => 'sanctum'],
             ['name' => 'gestionar ciudadanos', 'guard_name' => 'sanctum'],
             ['name' => 'gestionar reportes', 'guard_name' => 'sanctum'],
-            ['name' => 'gestionar privilegios', 'guard_name' => 'sanctum'],
+            ['name' => 'gestionar roles', 'guard_name' => 'sanctum'],
             ['name' => 'consultar usuarios', 'guard_name' => 'sanctum'],
             ['name' => 'crear usuarios', 'guard_name' => 'sanctum'],
             ['name' => 'editar usuarios', 'guard_name' => 'sanctum'],
@@ -30,6 +30,10 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'crear reportes', 'guard_name' => 'sanctum'],
             ['name' => 'editar reportes', 'guard_name' => 'sanctum'],
             ['name' => 'eliminar reportes', 'guard_name' => 'sanctum'],
+            ['name' => 'consultar roles', 'guard_name' => 'sanctum'],
+            ['name' => 'crear roles', 'guard_name' => 'sanctum'],
+            ['name' => 'editar roles', 'guard_name' => 'sanctum'],
+            ['name' => 'eliminar roles', 'guard_name' => 'sanctum'],
         ];
 
         // Insertar los permisos en la base de datos
