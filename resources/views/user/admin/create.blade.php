@@ -29,7 +29,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm">
-                        <x-adminlte-input name="name" label="Nombre" label-class="text-gray" value="{{old('name')}}">
+                        <x-adminlte-input id="name" name="name" label="Nombre" label-class="text-gray" value="{{old('name')}}">
                             <x-slot name="prependSlot">
                                 <div class="input-group-text">
                                     <i class="fas fa-user text-gray"></i>
@@ -37,7 +37,7 @@
                             </x-slot>
                         </x-adminlte-input>
 
-                        <x-adminlte-input name="lastname" label="Apellidos" label-class="text-gray" value="{{old('lastname')}}">
+                        <x-adminlte-input id="lastname" name="lastname" label="Apellidos" label-class="text-gray" value="{{old('lastname')}}">
                             <x-slot name="prependSlot">
                                 <div class="input-group-text">
                                     <i class="fas fa-user text-gray"></i>
@@ -45,7 +45,7 @@
                             </x-slot>
                         </x-adminlte-input>
 
-                        <x-adminlte-input name="email" type="email" label="Email" placeholder="ejemplo@gmail.com" label-class="text-gray" value="{{old('email')}}">
+                        <x-adminlte-input id="email" name="email" type="email" label="Email" placeholder="ejemplo@gmail.com" label-class="text-gray" value="{{old('email')}}">
                             <x-slot name="prependSlot">
                                 <div class="input-group-text">
                                     <i class="fas fa-envelope text-gray"></i>
@@ -63,7 +63,7 @@
                             </x-slot>
                         </x-adminlte-input> --}}
 
-                        <x-adminlte-input name="password" type="password" label="Contraseña" enable-old-support label-class="text-gray" value="{{old('password')}}">
+                        <x-adminlte-input id="passwordone" name="password" type="password" label="Contraseña" enable-old-support label-class="text-gray" value="{{old('password')}}">
                             <x-slot name="prependSlot">
                                 <div class="input-group-text">
                                     <i class="fas fa-lock text-gray"></i>
@@ -71,7 +71,7 @@
                             </x-slot>
                         </x-adminlte-input>
     
-                        <x-adminlte-input name="password_confirmation" type="password"  label="Confirmar Contraseña" enable-old-support label-class="text-gray" value="{{old('password_confirmation')}}">
+                        <x-adminlte-input id="passwordtwo" name="password_confirmation" type="password"  label="Confirmar Contraseña" enable-old-support label-class="text-gray" value="{{old('password_confirmation')}}">
                             <x-slot name="prependSlot">
                                 <div class="input-group-text">
                                     <i class="fas fa-lock text-gray"></i>
@@ -97,8 +97,7 @@
             </div>
         </form>
     </div>
-
-
+    <script src="{{ asset('assets/script/logs.js') }}"></script>
 @stop
 
 @section('css')
