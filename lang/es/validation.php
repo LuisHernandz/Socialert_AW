@@ -200,7 +200,7 @@ return [
         'is_winner'                => 'es ganador',
         'items'                    => 'elementos',
         'key'                      => 'clave',
-        'last_name'                => 'apellidos',
+        'lastname'                 => 'apellidos',
         'lesson'                   => 'lección',
         'line_address_1'           => 'línea de dirección 1',
         'line_address_2'           => 'línea de dirección 2',

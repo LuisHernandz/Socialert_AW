@@ -1,28 +1,26 @@
 @extends('adminlte::page')
-@section('title', 'Nuevo Administrador')
+@section('title', 'Nuevo Usuario Web')
 
 @section('content_header')
-    {{-- <h1>Administrador</h1>  --}}
     <br>
 @stop
 
 @section('content')
-@if (session())
-    @if (session('message') == 'ok')
-    <x-adminlte-card title="Registrado!" theme="info" icon="fas fa-lg fa-bell" removable>
-    </x-adminlte-card>
+    @if (session())
+        @if (session('message') == 'ok')
+            <x-adminlte-card title="Registrado correctamente!" theme="info" removable>
+            </x-adminlte-card>
+        @endif
     @endif
-@endif
 
-      <div class="card card-primary">
+    <div class="card card-primary">
         <div class="card-header d-flex justify-content-between">
-            <h3 class="card-title" style="flex-grow: 1;"><b>Nuevo Usuario</b></h3>
+            <h3 class="card-title" style="flex-grow: 1;"><b>Nuevo Usuario Web</b></h3>
 
             <div style="flex-grow: 1;" class="text-right">
                 <a href="{{route('admins.index')}}">Regresar</a>   
             </div>
         </div>
-        
         
         <form action="{{route('admins.store')}}" method="POST">
             @csrf
@@ -51,18 +49,12 @@
                                     <i class="fas fa-envelope text-gray"></i>
                                 </div>
                             </x-slot>
-                        </x-adminlte-input>
+                        </x-adminlte-input><br>
+
+                        <button type="submit" class="btn btn-primary">Registrar</button>
                     </div>
 
                     <div class="col-sm">
-                        {{-- <x-adminlte-input name="password" label="Contraseña" type="tel" igroup-size="sm" label-class="text-gray" value="{{old('password')}}">
-                            <x-slot name="appendSlot">
-                                <div class="input-group-text bg-dark">
-                                    <i class="fas fa-hashtag text-white"></i>
-                                </div>
-                            </x-slot>
-                        </x-adminlte-input> --}}
-
                         <x-adminlte-input id="passwordone" name="password" type="password" label="Contraseña" enable-old-support label-class="text-gray" value="{{old('password')}}">
                             <x-slot name="prependSlot">
                                 <div class="input-group-text">
@@ -86,26 +78,22 @@
                             <li>Al menos un número (0-9)..</li>
                             <li>Carácteres especiales.</li>
                         </ul>
-                        
-        
+
+                        <input type="hidden" name="status" value="activo">
                     </div>
                   </div>
             </div>
             
-            <div class="card-footer">
+            {{-- <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Registrar</button>
-            </div>
+            </div> --}}
         </form>
     </div>
-    <script src="{{ asset('assets/script/logs.js') }}"></script>
 @stop
 
 @section('css')
-    {{-- Add here extra stylesheets --}}
-    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
     <style>
         aside{
-            /* background-color: #00162C !important; */
             background-color: #08233d !important;
         }
 
@@ -116,5 +104,5 @@
 @stop
 
 @section('js')
-    <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
+    <script src="{{ asset('assets/script/logs.js') }}"></script>
 @stop

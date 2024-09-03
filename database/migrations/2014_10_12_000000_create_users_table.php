@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('lastname', 45);
             $table->string('email', 255)->unique();
             $table->string('password', 255);
-            $table->enum('estado', ['active', 'inactive'])->nullable();
+            $table->enum('status', ['activo', 'inactivo'])->nullable();
             $table->timestamps();
         });
 
@@ -26,15 +26,15 @@ return new class extends Migration
             // $table->foreignId('current_team_id')->nullable();
             // $table->string('profile_photo_path', 2048)->nullable();
 
-        DB::table('users')->insert([
-                'name' => 'Juan',
-                'lastname' => 'Ruíz',
-                'email' => 'juanruiz@gmail.com',
-                'password' => Hash::make('Admin123'), // Encriptar la contraseña
-                'estado' => 'active',
-                'created_at' => now(),
-                'updated_at' => now(),
-        ]);
+        // DB::table('users')->insert([
+        //         'name' => 'Juan',
+        //         'lastname' => 'Ruíz',
+        //         'email' => 'juanruiz@gmail.com',
+        //         'password' => Hash::make('Admin123'), // Encriptar la contraseña
+        //         'estado' => 'active',
+        //         'created_at' => now(),
+        //         'updated_at' => now(),
+        // ]);
     }
 
     /**

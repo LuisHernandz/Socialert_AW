@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const ids = ['name', 'lastname', 'email'];
+    const ids = ['name', 'lastname'];
     ids.forEach(function(id) {
       const input = document.getElementById(id);
       if (input) {

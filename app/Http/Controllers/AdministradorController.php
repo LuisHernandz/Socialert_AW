@@ -16,21 +16,21 @@ class AdministradorController extends Controller
     }
     public function index()
     {
-        // $administradores = User::all();
-        $administradores = User::with('roles')->get();
-        return view('user.admin.index', compact('administradores'));
+        $usuarios = User::with('roles')->get();
+        return view('user.web.index', compact('usuarios'));
     }
 
-    public function create()
+    public function create() 
     {
-        return view('user.admin.create');
+        $roles = Role::all();
+        return view('user.web.create', compact('roles'));
     }
 
     public function store(Request $request)
     {
         $validacion = $request->validate([
-            'name' => 'required|string|max:50', 
-            'lastname' => 'required|string|max:50',
+            'name' => 'required|string|max:50|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/', 
+            'lastname' => 'required|string|max:50|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/',
             'email' => 'required|string|email|max:50|unique:users',
             'password' => [
                 'required',
@@ -44,32 +44,46 @@ class AdministradorController extends Controller
             ],
         ]); 
 
-        $administrador = new User();
-        $administrador->name = $request->name;
-        $administrador->lastname = $request->lastname;
-        $administrador->email = $request->email;
-        $administrador->password = $request->password;
-        $administrador->save();
+        $usuario = new User();
+        $usuario->name = $request->name;
+        $usuario->lastname = $request->lastname;
+        $usuario->email = $request->email;
+        $usuario->password = $request->password;
+        $usuario->status = $request->status;
+        $usuario->save();
 
         return back()->with('message', 'ok');
     }
 
     public function edit(string $id)
     {
-        $administrador = User::find($id);
+        $usuario = User::find($id);
         $roles = Role::all();
-        return view('user.admin.edit', compact('administrador', 'roles'));
+        return view('user.web.edit', compact('usuario', 'roles'));
     }
 
     public function update(Request $request, string $id)
     {
-        $administrador = User::find($id);
-        $administrador->roles()->sync($request->roles);
-        return redirect()->route('admins.index', $administrador)->with('message', 'ok');
+        $validacion = $request->validate([
+            'name' => 'required|string|max:50|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/', 
+            'lastname' => 'required|string|max:50|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/',
+            'email' => 'required|string|email|max:50',
+        ]); 
+
+        $usuario = User::find($id);
+        $usuario->name = $request->name;
+        $usuario->lastname = $request->lastname;
+        $usuario->email = $request->email;
+        
+        $usuario->roles()->sync($request->roles);
+        $usuario->save();
+
+        return redirect()->route('admins.index', $usuario)->with('message', 'ok');
     }
 
-    public function destroy(string $id)
+    public function destroy(User $usuario)
     {
-        //
+        $usuario->delete();
+        return redirect()->route('admins.index', $usuario)->with('message', 'del');
     }
 }
