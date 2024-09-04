@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Citizen; 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -67,4 +68,8 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function citizen(){ //Recuperar informacion del ciudadano que corresponde al usuario. 
+        return $this->hasOne(Citizen::class);
+    }
 }

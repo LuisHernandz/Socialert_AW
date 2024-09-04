@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdministradorController;
+use App\Http\Controllers\CitizenController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\RoleController;
@@ -20,6 +21,7 @@ Route::middleware([
     })->name('dashboard');
     Route::get('/profile', [UsuarioController::class, 'profile'])->name('profile');
     Route::resource('/usuarios', AdministradorController::class)->names('admins');
+    Route::resource('/ciudadanos', CitizenController::class)->names('citizens');
     Route::resource('/roles', RoleController::class)->names('roles');
 });
 

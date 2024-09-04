@@ -51,7 +51,7 @@
             ];
             @endphp
 
-            <x-adminlte-datatable id="table1" :heads="$heads" :config="$config">
+            <x-adminlte-datatable id="table1" :heads="$heads" :config="$config"  class="table table-bordered table-striped">
                 @foreach($usuarios as $usuario)
                     <tr>
                         <td>{{$usuario->id}}</td>
@@ -127,7 +127,7 @@
 @stop
 
 @section('js')
-    <script>3
+    <script>
         // Cuando el documento termina de cargarse...
         $(document).ready(function(){
             $('.formEliminar').submit(function(e){ // Disparar funcion Anonima a partir del submit

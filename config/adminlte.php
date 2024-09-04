@@ -353,7 +353,7 @@ return [
         // ],
         [
             'text' => 'Ciudadanos',
-            'route' => '',
+            'route' => 'citizens.index',
             'icon' => 'fas fa-fw fa-user',
             'can' => ['gestionar ciudadanos', 'consultar ciudadanos'],     
         ],
