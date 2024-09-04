@@ -1,24 +1,25 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const ids = ['name', 'lastname'];
-    ids.forEach(function(id) {
+  const ids = ['name', 'lastname', 'email'];
+  ids.forEach(function(id) {
       const input = document.getElementById(id);
       if (input) {
-        input.addEventListener('keypress', function(event) {
-          if (id === 'name' || id === 'lastname') {
-            if (!/^[a-zA-Z]$/.test(String.fromCharCode(event.keyCode))) {
-              alert('Solo se permiten letras.');
-              event.preventDefault();
-            }
-          } else if (id === 'email') {
-            if (!/^[a-zA-Z@0-9]$/.test(String.fromCharCode(event.keyCode))) {
-              alert('Solo se permiten letras, @ y números.');
-              event.preventDefault();
-            }
-          }
-        });
+          input.addEventListener('keypress', function(event) {
+              if (id === 'name' || id === 'lastname') {
+                  if (!/^[a-zA-Z\s]$/.test(String.fromCharCode(event.keyCode))) {
+                      alert('Solo se permiten letras.');
+                      event.preventDefault();
+                  }
+              } else if (id === 'email') {
+                  if (!/^[a-zA-Z@0-9]$/.test(String.fromCharCode(event.keyCode))) {
+                      alert('Solo se permiten letras, @ y números.');
+                      event.preventDefault();
+                  }
+              }
+          });
       }
-    });
+  });
 });
+
 
 
 // document.addEventListener('DOMContentLoaded', function() { 
@@ -35,8 +36,8 @@ document.addEventListener('DOMContentLoaded', function() {
         'name': 50,
         'lastname': 50,
         'email': 50,
-        'passwordone': 8,
-        'passwordtwo': 8,
+        'passwordone': 30,
+        'passwordtwo': 30,
     };
 
     const limitInputLengthWithAlert = (input, maxLength) => {
