@@ -14,23 +14,19 @@ class PermissionsTableSeeder extends Seeder
     public function run(): void
     {
         $permissions = [
-            ['name' => 'gestionar usuarios', 'guard_name' => 'sanctum'],
-            ['name' => 'gestionar ciudadanos', 'guard_name' => 'sanctum'],
-            ['name' => 'gestionar reportes', 'guard_name' => 'sanctum'],
-            ['name' => 'gestionar roles', 'guard_name' => 'sanctum'],
-            ['name' => 'consultar usuarios', 'guard_name' => 'sanctum'],
-            ['name' => 'crear usuarios', 'guard_name' => 'sanctum'],
-            ['name' => 'editar usuarios', 'guard_name' => 'sanctum'],
-            ['name' => 'eliminar usuarios', 'guard_name' => 'sanctum'],
+            ['name' => 'consultar usuarios web', 'guard_name' => 'sanctum'],
+            ['name' => 'crear usuarios web', 'guard_name' => 'sanctum'],
+            ['name' => 'editar usuarios web', 'guard_name' => 'sanctum'],
+            ['name' => 'eliminar usuarios web', 'guard_name' => 'sanctum'],
+
             ['name' => 'consultar ciudadanos', 'guard_name' => 'sanctum'],
-            ['name' => 'crear ciudadanos', 'guard_name' => 'sanctum'],
-            ['name' => 'editar ciudadanos', 'guard_name' => 'sanctum'],
             ['name' => 'eliminar ciudadanos', 'guard_name' => 'sanctum'],
+
             ['name' => 'consultar reportes', 'guard_name' => 'sanctum'],
             ['name' => 'crear reportes', 'guard_name' => 'sanctum'],
             ['name' => 'editar reportes', 'guard_name' => 'sanctum'],
             ['name' => 'eliminar reportes', 'guard_name' => 'sanctum'],
-            ['name' => 'consultar roles', 'guard_name' => 'sanctum'],
+
             ['name' => 'crear roles', 'guard_name' => 'sanctum'],
             ['name' => 'editar roles', 'guard_name' => 'sanctum'],
             ['name' => 'eliminar roles', 'guard_name' => 'sanctum'],
