@@ -317,7 +317,7 @@ return [
             'text' => 'Dashboard',
             'url' => '/',
             'icon' => 'fas fa-fw fa-home',
-            'can' => ['gestionar usuarios'],  
+            // 'can' => ['gestionar usuarios'],  
         ],
         /*
         [
@@ -329,13 +329,13 @@ return [
         ],
         */
         ['header' => 'GESTIÓN DE USUARIOS',
-            'can' => ['gestionar usuarios', 'consultar usuarios'],    
+            'can' => ['consultar usuarios web', 'crear usuarios web', 'editar usuarios web', 'eliminar usuarios web'],    
         ],
         [
             'text' => 'Usuarios Web',
             'route' => 'admins.index',
             'icon' => 'fas fa-fw fa-user',
-            'can' => ['gestionar usuarios', 'consultar usuarios'],  
+            'can' => ['consultar usuarios web', 'crear usuarios web', 'editar usuarios web', 'eliminar usuarios web'],
         ],
         // [
         //     'text' => 'Administrador',
@@ -355,16 +355,18 @@ return [
             'text' => 'Ciudadanos',
             'route' => 'citizens.index',
             'icon' => 'fas fa-fw fa-user',
-            'can' => ['gestionar ciudadanos', 'consultar ciudadanos'],     
+            'can' => ['gestionar ciudadanos', 'consultar ciudadanos'], 
+            'can' => ['consultar ciudadanos', 'crear ciudadanos', 'editar ciudadanos', 'eliminar ciudadanos'],     
         ],
         [
             'text' => 'Privilegios',
             'icon' => 'fas fa-fw fa-key',
-            'can' => ['gestionar roles', 'consultar roles'],     
+            'can' => ['crear roles', 'editar roles', 'eliminar roles'],     
             'submenu' => [
                 [
                     'text' => 'Roles',
                     'route' => 'roles.index',
+                    // 'can' => ['crear roles', 'editar roles', 'eliminar roles'],    
                 ],
             ],
         ],

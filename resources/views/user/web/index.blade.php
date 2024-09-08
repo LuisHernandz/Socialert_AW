@@ -19,7 +19,7 @@
 
     <div class="card">
         <div class="card-header">
-            @can('crear usuarios')
+            @can('crear usuarios web')
                 <a href="{{route('admins.create')}}">
                     <x-adminlte-button label="Nuevo" theme="primary" icon="fas fa-plus-circle" class="float-right"/>
                 </a>
@@ -69,19 +69,25 @@
                             @if (auth()->user()->id === $usuario->id)
                                 <i>Edita, Elimina y Accede a tu cuenta desde el apartado de <b>Perfil</b>.</i>
                             @else
-                                @can('editar usuarios')
-                                    <a class="btn btn-xs btn-default text-primary mx-1 shadow" title="Editar" href="{{route('admins.edit', $usuario)}}">
-                                        <i class="fa fa-lg fa-fw fa-pen"></i>
-                                    </a>
-                                @endcan
-                                {!! $btnDetails !!}
-                                @can('eliminar usuarios')
-                                    <form action="{{route('admins.destroy', $usuario)}}" method="POST" class="formEliminar d-inline">
-                                        @csrf
-                                        @method('delete')
-                                        {!! $btnDelete !!} 
-                                    </form>
-                                @endcan
+                                @if ($usuario->email === 'juanruiz@gmail.com')
+                                    <i>No tienes acciones sobre este usuario.</i>
+                                @else
+                                    @can('editar usuarios web')
+                                        <a class="btn btn-xs btn-default text-primary mx-1 shadow" title="Editar" href="{{route('admins.edit', $usuario)}}">
+                                            <i class="fa fa-lg fa-fw fa-pen"></i>
+                                        </a>
+                                    @endcan
+
+                                    {!! $btnDetails !!}
+                                    @can('eliminar usuarios web')
+                                        <form action="{{route('admins.destroy', $usuario)}}" method="POST" class="formEliminar d-inline">
+                                            @csrf
+                                            @method('delete')
+                                            {!! $btnDelete !!} 
+                                        </form>
+                                    @endcan
+                                @endif
+
                             @endif
                         </td>
                     </tr>
