@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('citizens', function (Blueprint $table) {
             $table->id();
             $table->string('phone', 10);
-            $table->enum('sex', ['M', 'F', 'N']);
+            $table->enum('gender', ['M', 'F', 'N']);
             $table->string('curp', 18)->unique();
 
             $table->unsignedBigInteger('user_id')->unique();

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Citizen; 
+use App\Models\Citizen;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -13,7 +13,7 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable 
+class User extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;
@@ -28,10 +28,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'nombre',
-        'apellidos',
+        'name',
+        'lastname',
         'email',
         'password',
+        'status'
     ];
 
     /**
@@ -69,7 +70,7 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function citizen(){ //Recuperar informacion del ciudadano que corresponde al usuario. 
+    public function citizen(){ //Recuperar informacion del ciudadano que corresponde al usuario.
         return $this->hasOne(Citizen::class);
     }
 }

@@ -9,7 +9,14 @@ class Citizen extends Model
 {
     use HasFactory;
 
-    public function user(){ //Recuperar informacion del usuario que corresponde al ciudadano. 
+    protected $fillable = [
+        'phone',
+        'gender',
+        'curp',
+        'user_id'
+    ];
+
+    public function user(){ //Recuperar informacion del usuario que corresponde al ciudadano.
         return $this->belongsTo('App\Models\User');
     }
 }
