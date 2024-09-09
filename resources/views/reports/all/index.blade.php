@@ -23,7 +23,7 @@
                 ['label' => 'Acciones', 'no-export' => true, 'width' => 15],
             ];
 
-            $btnEdit = '<button type="submit" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Atender">
+            $btnEdit = '<button type="submit" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Atender" data-toggle="modal" data-target="#atender">
                             <i class="fa fa-lg fa-fw fa-bell"></i>
                         </button>';
             $btnDelete = '<button type="submit" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Eliminar">
@@ -61,23 +61,53 @@
                                         <span class="badge badge-info right">{{$reporte->status}}</span>
                                     @endif
                                 @endif
-
-    
                             </td>
                             <td class="text-center">
-                                {!! $btnEdit !!}
-                                {!! $btnDetails !!}
+                                {{-- {!! $btnEdit !!} --}}
+                                <button class="btn btn-xs text-primary mx-1" 
+                                    data-toggle="modal" 
+                                    data-target="#modalAtender{{$reporte->id}}">
+                                    <i class="fa fa-lg fa-fw fa-bell"></i>
+                                </button>
                                 {!! $btnDelete !!} 
-
-                                {{-- @can('eliminar usuarios')
-                                    <form action="{{route('citizens.destroy', $citizen->citizen_id)}}" method="POST" class="formEliminar d-inline">
-                                        @csrf
-                                        @method('delete')
-                                        {!! $btnDelete !!} 
-                                    </form>
-                                @endcan --}}
                             </td>
                         </tr>
+
+                        <x-adminlte-modal id="modalAtender{{$reporte->id}}" title="REPORTE {{$reporte->id}}" theme="" size='lg' disable-animations>
+                            <form action="{{ route('roles.store') }}" method="POST">
+                                @csrf
+                                <div class="card-body">
+                                    <p><b>Estado:</b>
+                                        @if ($reporte->status === 'Pendiente')
+                                            <span class="badge badge-warning right">Pendiente</span>
+                                        @elseif ($reporte->status === 'Atendida')
+                                            <span class="badge badge-success right">Atendida</span>
+                                        @else
+                                            <span class="badge badge-info right">En Proceso</span>
+                                        @endif
+                                    </p>
+                                    <p><b>Fecha:</b> {{$reporte->created_at}}</p>
+                                    <div class="row text-black">
+                                        <div class="col-sm">
+                                            <p><b>Tipo:</b> {{$reporte->type}}</p>
+                                            <p><b>Descripción:</b> {{$reporte->description}}</p>
+                                            <p><b>Realizado Desde:</b></p>
+                                            <div>
+                                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3817.5960722249692!2d-92.06984862585313!3d16.89586451678076!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85f2c1f8b5276b53%3A0x978aebe8eb252468!2sUniversidad%20Tecnol%C3%B3gica%20De%20La%20Selva!5e0!3m2!1ses!2smx!4v1725863903541!5m2!1ses!2smx" 
+                                                    style="border:0;" allowfullscreen="" loading="lazy">
+                                                </iframe>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm">
+                                            <p><b>Reportado Por:</b> {{$reporte->user_name}} {{$reporte->user_lastname}}</p>
+                                            <p><b>CURP:</b> {{$reporte->citizen_curp}}</p>
+                                            <p><b>Teléfono:</b> {{$reporte->citizen_phone}}</p>
+                                            <p><b>Recursos Compartidos:</b></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </x-adminlte-modal>
                     @endforeach
                 @endif
             </x-adminlte-datatable>
@@ -87,21 +117,38 @@
     {{-- @if($citizens->isEmpty())
     @else --}}
     {{-- Modal --}}
-    {{-- <x-adminlte-modal id="modalPurple" title="Más Información" theme="primary" size='lg' disable-animations>
+    {{-- <x-adminlte-modal id="atender" title="REPORTE" theme="sucess" size='lg' disable-animations>
         <form action="{{route('roles.store')}}" method="POST">
             @csrf
             <div class="card-body">
-                <div class="row text-gray">
+                <p>
+                    <b>Estado:</b>
+                    @if ($reporte->status === 'Pendiente')
+                        <span class="badge badge-warning right">Pendiente</span>
+                    @else
+                        @if ($reporte->status === 'Atendida')
+                            <span class="badge badge-success right">Atendida</span>
+                        @else
+                            <span class="badge badge-info right">En Proceso</span>
+                        @endif                        
+                    @endif
+                    
+                </p>
+                <p><b>Fecha:</b> {{$reporte->created_at}}</p>
+                <div class="row text-black">
                     <div class="col-sm">
-                        <p><b>Nombre Completo:</b> {{$citizen->name}} {{$citizen->lastname}}</p>
-                        <p><b>Email:</b> {{$citizen->email}}</p>
-                        <p><b>CURP:</b> {{$citizen->curp}}</p>
-                        <p><b>Teléfono:</b> {{$citizen->phone}}</p>
+                        <p><b>Tipo:</b> {{$reporte->type}}</p>
+                        <p><b>Descripción:</b> {{$reporte->description}}</p>
+                        <p><b>Realizado Desde:</b></p>
+                        <div>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3817.5960722249692!2d-92.06984862585313!3d16.89586451678076!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85f2c1f8b5276b53%3A0x978aebe8eb252468!2sUniversidad%20Tecnol%C3%B3gica%20De%20La%20Selva!5e0!3m2!1ses!2smx!4v1725863903541!5m2!1ses!2smx" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
                     </div>
                     <div class="col-sm">
-                        <p><b>Sexo:</b> {{$citizen->sex}}</p>
-                        <p><b>Estado:</b> {{$citizen->status}}</p>
-                        <p><b>Creado En:</b> {{$citizen->created_at}}</p>
+                        <p><b>Reportado Por:</b> {{$reporte->user_name}} {{$reporte->user_lastname}}</p>
+                        <p><b>CURP:</b> {{$reporte->citizen_curp}}</p>
+                        <p><b>Telefono:</b> {{$reporte->citizen_phone}}</p>
+                        <p><b>Recursos Compartidos:</b></p>
                     </div>
                 </div>
             </div>
@@ -131,6 +178,44 @@
 
 @section('js')
     <script>
+        function fetchReportes() {
+            $.ajax({
+                url: '{{ route("reportes.show") }}',
+                method: 'GET',
+                success: function(response) {
+                    let tableBody = '';
+                    
+                    // Recorrer los datos recibidos y actualizar la tabla
+                    response.forEach(function(reporte) {
+                        tableBody += `
+                            <tr>
+                                <td>${reporte.id}</td>
+                                <td>${reporte.type}</td>
+                                <td>${reporte.description}</td>
+                                <td>${reporte.created_at}</td>
+                                <td>
+                                    ${reporte.status === "Pendiente" ? '<span class="badge badge-warning right">Pendiente</span>' : ''}
+                                    ${reporte.status === "Atendida" ? '<span class="badge badge-success right">Atendida</span>' : ''}
+                                    ${reporte.status === "En Proceso" ? '<span class="badge badge-info right">En Proceso</span>' : ''}
+                                </td>
+                                <td class="text-center">
+                                    {!! $btnEdit !!}
+                                    {!! $btnDelete !!}
+                                </td>
+                            </tr>
+                        `;
+                    });
+
+                    $('#table tbody').html(tableBody); // Reemplazar el contenido del tbody de la tabla
+                }
+            });
+        }
+
+        // Llamar a fetchReportes cada 30 segundos
+        setInterval(fetchReportes, 15000); 
+    </script>
+
+    {{-- <script>
         // Cuando el documento termina de cargarse...
         $(document).ready(function(){
             $('.formEliminar').submit(function(e){ // Disparar funcion Anonima a partir del submit
@@ -154,5 +239,5 @@
                  });
             })
         })
-    </script>
+    </script> --}}
 @stop
