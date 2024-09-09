@@ -14,31 +14,32 @@ class ApiCitizenController extends Controller
 {
 
     public function show($id){
-        try {
-            $showUser = User::find($id);
-            $showCitizen = Citizen::where('user_id', $id)->first();
+        return "hola";
+        // try {
+        //     $showUser = User::find($id);
+        //     $showCitizen = Citizen::where('user_id', $id)->first();
 
-            if (!$showUser || !$showCitizen) {
-                return response()->json([
-                    'status' => 0,
-                    'message' => 'Usuario o ciudadano no encontrado.'
-                ], 404);
-            }
+        //     if (!$showUser || !$showCitizen) {
+        //         return response()->json([
+        //             'status' => 0,
+        //             'message' => 'Usuario o ciudadano no encontrado.'
+        //         ], 404);
+        //     }
 
-            $data = [
-                'Información de usuario' => $showUser,
-                'Información de ciudadano' => $showCitizen
-            ];
-            return response()->json($data, 200);
+        //     $data = [
+        //         'Información de usuario' => $showUser,
+        //         'Información de ciudadano' => $showCitizen
+        //     ];
+        //     return response()->json($data, 200);
 
-        } catch (Exception $e) {
+        // } catch (Exception $e) {
 
-            return response()->json([
-                'status' => 0,
-                'message' => 'Error al mostrar la información.',
-                'error' => $e->getMessage()
-            ], 500);
-        }
+        //     return response()->json([
+        //         'status' => 0,
+        //         'message' => 'Error al mostrar la información.',
+        //         'error' => $e->getMessage()
+        //     ], 500);
+        // }
     }
 
     public function store(Request $request){
