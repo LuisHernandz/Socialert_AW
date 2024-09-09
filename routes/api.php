@@ -26,5 +26,3 @@ Route::post('/store-citizen', [ApiCitizenController::class, 'store']);
 Route::post('/update-citizen/{id}', [ApiCitizenController::class, 'update']);
 
 Route::delete('/destroy-citizen/{id}', [ApiCitizenController::class, 'destroy']);
-
-Route::get('/index-citizen', [ApiCitizenController::class, 'index']);

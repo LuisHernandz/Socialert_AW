@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Validator;
 class ApiCitizenController extends Controller
 {
 
-    public function index(){
-        return Citizen::all();
-    }
-
     public function show($id){
         try {
             $showUser = User::find($id);
