@@ -15,7 +15,7 @@ class CitizenController extends Controller
         ->select(
             'citizens.id as citizen_id',
             'citizens.phone',
-            'citizens.sex',
+            'citizens.gender',
             'citizens.curp',
             'citizens.created_at',
             'users.id',

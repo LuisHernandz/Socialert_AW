@@ -12,7 +12,7 @@
     @endif
 
     <div class="card">
-        <div class="card-body">
+        <div class="card-body"> 
             @php
             $heads = [
                 'ID',
@@ -82,7 +82,7 @@
                         <p><b>Teléfono:</b> {{$citizen->phone}}</p>
                     </div>
                     <div class="col-sm">
-                        <p><b>Sexo:</b> {{$citizen->sex}}</p>
+                        <p><b>Género:</b> {{$citizen->gender}}</p>
                         <p><b>Estado:</b> {{$citizen->status}}</p>
                         <p><b>Creado En:</b> {{$citizen->created_at}}</p>
                     </div>
