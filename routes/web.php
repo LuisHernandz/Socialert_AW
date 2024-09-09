@@ -25,5 +25,8 @@ Route::middleware([
     Route::resource('/ciudadanos', CitizenController::class)->names('citizens');
     Route::resource('/roles', RoleController::class)->names('roles');
     Route::resource('/reportes', ReportsController::class)->names('reportes');
+
+    Route::get('/reportes/getReportes', [ReportsController::class, 'show'])->name('reportes.show');
+
 });
 
