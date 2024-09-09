@@ -23,7 +23,6 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'eliminar ciudadanos', 'guard_name' => 'sanctum'],
 
             ['name' => 'consultar reportes', 'guard_name' => 'sanctum'],
-            ['name' => 'crear reportes', 'guard_name' => 'sanctum'],
             ['name' => 'editar reportes', 'guard_name' => 'sanctum'],
             ['name' => 'eliminar reportes', 'guard_name' => 'sanctum'],
 

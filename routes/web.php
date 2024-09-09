@@ -4,6 +4,7 @@ use App\Http\Controllers\AdministradorController;
 use App\Http\Controllers\CitizenController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\PermisoController;
+use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UsuarioController;
 use DragonCode\Contracts\Cashier\Config\Queues\Names;
@@ -23,5 +24,6 @@ Route::middleware([
     Route::resource('/usuarios', AdministradorController::class)->names('admins');
     Route::resource('/ciudadanos', CitizenController::class)->names('citizens');
     Route::resource('/roles', RoleController::class)->names('roles');
+    Route::resource('/reportes', ReportsController::class)->names('reportes');
 });
 

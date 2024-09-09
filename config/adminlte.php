@@ -380,7 +380,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Todas',
-                    'route' => '',
+                    'route' => 'reportes.index',
                     'can' => ['gestionar reportes', 'consultar reportes'],  
                 ],
                 [
@@ -404,7 +404,7 @@ return [
             'text' => 'Backup (Respaldo)',
             'route' => '',
             'icon' => 'fas fa-fw fa-server',
-            'can' => ['gestionar usuarios'],    
+            // 'can' => ['gestionar usuarios'],    
         ],
         // [
         //     'text' => 'important',
