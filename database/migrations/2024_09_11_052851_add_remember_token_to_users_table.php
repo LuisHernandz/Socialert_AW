@@ -6,25 +6,23 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
-    {
-        Schema::table('users', function (Blueprint $table) {
-            // Agregar la columna remember_token a la tabla users
-            $table->rememberToken()->after('password'); // Añade la columna después del campo 'password'
-        });
-    }
+{
+    Schema::table('users', function (Blueprint $table) {
+        if (!Schema::hasColumn('users', 'remember_token')) {
+            $table->rememberToken(); // Solo agrega la columna si no existe
+        }
+    });
+}
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::table('users', function (Blueprint $table) {
-            // Eliminar la columna remember_token si se revierte la migración
-            $table->dropColumn('remember_token');
-        });
-    }
+public function down(): void
+{
+    Schema::table('users', function (Blueprint $table) {
+        if (Schema::hasColumn('users', 'remember_token')) {
+            $table->dropColumn('remember_token'); // Elimina la columna si existe
+        }
+    });
+}
+
+
 };
