@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('email', 255)->unique();
             $table->string('password', 255);
             $table->enum('status', ['activo', 'inactivo'])->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
 

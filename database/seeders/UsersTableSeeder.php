@@ -20,8 +20,9 @@ class UsersTableSeeder extends Seeder
             'email' => 'juanruiz@gmail.com',
             'password' => Hash::make('Admin123'), // Encriptar la contraseña
             'status' => 'activo',
+            'remember_token' => null,
             'created_at' => now(),
-            'updated_at' => now(),
+            'updated_at' => now(), 
         ]);
     }
 }
