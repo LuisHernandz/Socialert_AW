@@ -22,7 +22,7 @@ class ReportSeeder extends Seeder
                 'updated_at' => now(),
                 'type_id' => 1, 
                 'status_id' => 1, 
-                'citizen_id' => 1, 
+                'citizen_id' => 2, 
             ],
             [
                 'description' => '',
@@ -32,7 +32,7 @@ class ReportSeeder extends Seeder
                 'updated_at' => now(),
                 'type_id' => 2, 
                 'status_id' => 2,
-                'citizen_id' => 1,
+                'citizen_id' => 3,
             ],
             [
                 'description' => 'Intento de asalto en combi',
@@ -42,7 +42,7 @@ class ReportSeeder extends Seeder
                 'updated_at' => now(),
                 'type_id' => 3,
                 'status_id' => 3,
-                'citizen_id' => 1,
+                'citizen_id' => 4,
             ],
         ]);
     }

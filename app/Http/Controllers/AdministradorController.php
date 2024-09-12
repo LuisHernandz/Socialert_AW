@@ -16,7 +16,9 @@ class AdministradorController extends Controller
     }
     public function index()
     {
-        $usuarios = User::with('roles')->get();
+        $usuarios = User::with('roles')
+        ->whereDoesntHave('citizen')
+        ->get();
         return view('user.web.index', compact('usuarios'));
     }
 
