@@ -27,7 +27,7 @@ Route::post('/update-citizen/{id}', [ApiCitizenController::class, 'update']);
 
 Route::delete('/destroy-citizen/{id}', [ApiCitizenController::class, 'destroy']);
 
-Route::post('/login-citizen', [ApiCitizenController::class, 'login_citizen']) -> name('login');
+Route::post('/login-citizen', [ApiCitizenController::class, 'login_citizen']);
 
 Route::middleware('auth:sanctum') -> group(function(){
     Route::post('/logout-citizen', [ApiCitizenController::class, 'logout_citizen']);

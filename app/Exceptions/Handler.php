@@ -31,10 +31,12 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $exception)
     {
-        if ($exception instanceof AuthenticationException) {
-            return response()->json([
-                'message' => 'Sesión no válida o token inválido'
-            ], 401);
+        if($request -> is('api/*')){
+            if($exception instanceof AuthenticationException){
+                return response() -> json([
+                    'message' => 'Sesión o token inválido'
+                ], 401);
+            }
         }
 
         return parent::render($request, $exception);
