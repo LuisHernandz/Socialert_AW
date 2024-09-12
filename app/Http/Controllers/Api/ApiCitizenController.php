@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 use App\Models\Citizen;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class ApiCitizenController extends Controller
 {
@@ -217,6 +217,72 @@ class ApiCitizenController extends Controller
             return response()->json($data, 500);
         }
 
+    }
+
+    public function login_citizen(Request $request){
+
+        $validator = Validator::make($request -> all(),[
+            'email' => 'required|email',
+            'password' => 'required'
+        ],[
+            'email.required' => 'El campo email es obligatorio.',
+            'email.email' => 'El formato del email es inválido.',
+            'password.required' => 'El campo password es obligatorio.'
+        ]);
+
+        if($validator -> fails()){
+            return response() -> json([
+                'message' => 'Error en la validación',
+                'errors' => $validator -> errors()
+            ], 422);
+        }
+
+        $credentials = $request -> only('email', 'password');
+        if(!Auth::attempt($credentials)){
+            return response() -> json([
+                'message' => 'Credenciales incorrectas'
+            ], 401);
+        }
+
+        $user = Auth::user();
+
+        $token = $user -> createToken('auth_token') -> plainTextToken;
+
+        $citizen = Citizen::where('user_id', $user -> id) -> firstOrFail();
+
+        return response() -> json([
+            'message' => 'login exitoso',
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+            'user' => [
+            'user_id' => $user->id,
+            'citizen_id' => $citizen -> id,
+            'name' => $user->name,
+            'lastname' => $user -> lastname,
+            'phoneNumber' => $citizen -> phoneNumber,
+            'curp' => $citizen -> curp,
+            'email'  => $user->email,
+            'género' => $citizen -> gender
+            ],
+        ]);
+    }
+
+    public function logout_citizen(Request $request){
+
+        $user = $request->user();
+
+        if (!$user) {
+            return response()->json(['message' => 'Sesión no válida'], 401);
+        }
+
+        $token = $user->currentAccessToken();
+
+        if ($token) {
+            $token->delete();
+            return response()->json(['message' => 'Cierre de sesión exitoso'], 200);
+        } else {
+            return response()->json(['message' => 'Token inválido'], 401);
+        }
     }
 
 }
