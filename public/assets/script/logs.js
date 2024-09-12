@@ -1,35 +1,30 @@
 document.addEventListener('DOMContentLoaded', function() {
-  const ids = ['name', 'lastname', 'email'];
-  ids.forEach(function(id) {
+    const ids = ['name', 'lastname', 'email'];
+    ids.forEach(function(id) {
       const input = document.getElementById(id);
       if (input) {
-          input.addEventListener('keypress', function(event) {
-              if (id === 'name' || id === 'lastname') {
-                  if (!/^[a-zA-Z\s]$/.test(String.fromCharCode(event.keyCode))) {
-                      alert('Solo se permiten letras.');
-                      event.preventDefault();
-                  }
-              } else if (id === 'email') {
-                  if (!/^[a-zA-Z@0-9]$/.test(String.fromCharCode(event.keyCode))) {
-                      alert('Solo se permiten letras, @ y números.');
-                      event.preventDefault();
-                  }
-              }
-          });
+        input.addEventListener('keypress', function(event) {
+          const char = String.fromCharCode(event.keyCode || event.which);
+  
+          // Validación para nombres y apellidos (letras, espacios, y acentos)
+          if (id === 'name' || id === 'lastname') {
+            if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]$/.test(char)) {
+              alert('Solo se permiten letras.');
+              event.preventDefault();
+            }
+          } 
+          // Validación para correo electrónico (letras, números, @, ., _, -)
+          else if (id === 'email') {
+            if (!/^[a-zA-Z0-9@._-]$/.test(char)) {
+              alert('Solo se permiten letras y números');
+              event.preventDefault();
+            }
+          }
+        });
       }
-  });
-});
+    });
+  });  
 
-
-
-// document.addEventListener('DOMContentLoaded', function() { 
-//     const inputNombre = document.getElementById('nombre');
-//     if (inputNombre) {
-//         inputNombre.addEventListener('input', function() {
-//             inputNombre.value = inputNombre.value.replace(/[^a-zA-Z\s]/g, '')
-//         });
-//     }
-// });
 
 document.addEventListener('DOMContentLoaded', function() {
     const limits = {
