@@ -402,7 +402,7 @@ return [
         ['header' => 'OTROS'],
         [
             'text' => 'Backup (Respaldo)',
-            'route' => '',
+            'route' => 'backup',
             'icon' => 'fas fa-fw fa-server',
             // 'can' => ['gestionar usuarios'],    
         ],

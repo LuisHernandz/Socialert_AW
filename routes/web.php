@@ -10,6 +10,7 @@ use App\Http\Controllers\UsuarioController;
 use DragonCode\Contracts\Cashier\Config\Queues\Names;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Contracts\Permission;
+use App\Http\Controllers\BackupController;
 
  
 Route::middleware([
@@ -27,6 +28,8 @@ Route::middleware([
     Route::resource('/reportes', ReportsController::class)->names('reportes');
 
     Route::get('/reportes/getReportes', [ReportsController::class, 'show'])->name('reportes.show');
+
+    Route::get('/backup', [BackupController::class, 'Backup'])->name('backup');
 
 });
 
