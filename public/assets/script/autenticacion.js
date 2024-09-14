@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const char = String.fromCharCode(event.keyCode || event.which);
 
                 if (id === 'email') {
-                    if (!/^[a-zA-Z0-9@._-]$/.test(char)) {
+                    if (!/^[a-zA-Z0-9ñÑ@._-]+$/.test(char)) {
                         showAlert('Solo se permiten caracteres válidos en correos electrónicos.');
                         event.preventDefault();
                     }

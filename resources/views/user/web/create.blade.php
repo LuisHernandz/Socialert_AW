@@ -6,6 +6,14 @@
 @stop
 
 @section('content')
+
+<!-- Div para la alerta personalizada -->
+<div class="my-alert" id="myAlert">
+    <span class="close-alert" id="closeAlert">&times;</span>
+    <p id="alertMessage"></p>
+</div>
+<div class="alert-overlay" id="alertOverlay"></div>
+
     @if (session())
         @if (session('message') == 'ok')
             <x-adminlte-card title="Registrado correctamente!" theme="info" removable>
@@ -101,6 +109,7 @@
             background-color: transparent !important;
         }
     </style>
+    <link rel="stylesheet" href="{{asset('assets/css/alertus.css')}}">
 @stop
 
 @section('js')

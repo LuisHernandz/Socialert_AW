@@ -1,0 +1,47 @@
+/* Estilos para la nueva alerta personalizada */
+.my-alert {
+    display: none;
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f44336; /* Color rojo para alerta */
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    z-index: 1000;
+}
+
+.my-alert p {
+    margin: 0;
+}
+
+/* Botón de cerrar */
+.close-alert {
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+
+.close-alert:hover {
+    color: #f1f1f1;
+}
+
+/* Overlay para hacer énfasis en la alerta */
+.alert-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+    z-index: 999;
+}

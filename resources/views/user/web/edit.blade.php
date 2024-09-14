@@ -7,6 +7,13 @@
 @stop
 
 @section('content')
+<!-- Div para la alerta personalizada -->
+<div class="my-alert" id="myAlert">
+    <span class="close-alert" id="closeAlert">&times;</span>
+    <p id="alertMessage"></p>
+</div>
+<div class="alert-overlay" id="alertOverlay"></div>
+
     <div class="card card-primary">
         <div class="card-header d-flex justify-content-between">
             <h3 class="card-title" style="flex-grow: 1;"><b>Editar Usuario Web</b></h3>
@@ -89,6 +96,7 @@
             background-color: transparent !important;
         }
     </style>
+    <link rel="stylesheet" href="{{asset('assets/css/alertus.css')}}">
 @stop
 
 @section('js')
