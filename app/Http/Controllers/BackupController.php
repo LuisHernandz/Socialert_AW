@@ -9,7 +9,7 @@ class BackupController extends Controller
     public function Backup()
     {
         $fecha = date('d-m-Y');
-        $nombreArchivo = 'Backup-SOCIALERT' . $fecha . '.zip';
+        $nombreArchivo = 'Backup-SOCIALERT ' . $fecha . '.zip';
 
         $comando = "php " . base_path() . "/artisan backup:run --only-db --filename=" . $nombreArchivo;
         exec($comando);
