@@ -19,4 +19,9 @@ class Citizen extends Model
     public function user(){ //Recuperar informacion del usuario que corresponde al ciudadano.
         return $this->belongsTo('App\Models\User');
     }
+
+    public function reports()
+    {
+        return $this->hasMany('App\Models\Reports');
+    }
 }
