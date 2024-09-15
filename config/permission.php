@@ -168,9 +168,8 @@ return [
          */
 
         //'expiration_time' => \DateInterval::createFromDateString('24 hours'),
-        //'expiration_time' => \DateInterval::createFromDateString('2 seconds'),
-        'expiration_time' => 0, 
 
+        'expiration_time' => \DateInterval::createFromDateString('2 seconds'),
         /*
          * The cache key used to store all permissions.
          */

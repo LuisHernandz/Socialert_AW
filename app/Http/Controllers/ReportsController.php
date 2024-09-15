@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class ReportsController extends Controller
 {
     public function index()
-    {
+{
         $reportes = DB::table('reports')
             ->select(
                 'reports.id',
@@ -23,7 +23,7 @@ class ReportsController extends Controller
 
                 'citizens.phone as citizen_phone',
                 'citizens.curp as citizen_curp',
-                
+
                 'users.name as user_name',
                 'users.lastname as user_lastname',
                 'users.email as user_email'
@@ -53,7 +53,7 @@ class ReportsController extends Controller
 
             'citizens.phone as citizen_phone',
             'citizens.curp as citizen_curp',
-            
+
             'users.name as user_name',
             'users.lastname as user_lastname',
             'users.email as user_email'

@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ModelHasRolesTableSeeder::class);
         $this->call(StatusSeeder::class);
         $this->call(TypesSeeder::class);
+        $this->call(CitizenSeeder::class);
         $this->call(ReportSeeder::class);
         
         // Client::factory(30)->create();
