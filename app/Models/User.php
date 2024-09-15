@@ -73,4 +73,9 @@ class User extends Authenticatable
     public function citizen(){ //Recuperar informacion del ciudadano que corresponde al usuario.
         return $this->hasOne(Citizen::class);
     }
+
+    public function reports()
+    {
+        return $this->hasMany('App\Models\Reports');
+    }
 }
