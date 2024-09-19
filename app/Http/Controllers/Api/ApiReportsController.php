@@ -11,9 +11,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\Storage;
 
 class ApiReportsController extends Controller {
 
@@ -181,8 +180,6 @@ class ApiReportsController extends Controller {
     //     }
     // }
 
-  
-
     public function store(Request $request)
 {
 
@@ -200,8 +197,12 @@ class ApiReportsController extends Controller {
         return response()->json($data, 422);
     }
     
-    $user = Auth::user();
-    $citizen = Citizen::where('user_id', $user -> id) -> first();
+
+    // Aquí puedes poner un usuario por defecto o buscar al usuario autenticado
+    $user = Auth::user() ?: User::find(2);  // Usuario con id 1 como fallback
+
+    // Intentamos encontrar el ciudadano relacionado
+    $citizen = Citizen::where('user_id', $user->id)->first();
 
     if (!$citizen) {
         // Devolver un error si no se encuentra el ciudadano

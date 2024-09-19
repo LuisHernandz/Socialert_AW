@@ -195,10 +195,6 @@
 
 @section('js')
 
-
-
-
-
 <script>
     Pusher.logToConsole = true;
    var pusher = new Pusher('77e443e085266d4f2f06', {
