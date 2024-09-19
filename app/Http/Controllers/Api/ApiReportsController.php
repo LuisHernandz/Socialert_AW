@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\ReportCreated;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Reports;
 use App\Models\Citizen;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -95,78 +97,171 @@ class ApiReportsController extends Controller {
         }
     }
 
-    public function store(Request $request){
+    // public function store(Request $request){
 
-        $validator = Validator::make($request -> all(),[
-            'description' => 'nullable',
-            'file' => 'nullable|file|mimes:jpeg,png,jpg,mp4,mov,avi',
-            'type_id' => 'required|exists:types,id'
+    //     $validator = Validator::make($request -> all(),[
+    //         'description' => 'nullable',
+    //         'file' => 'nullable|file|mimes:jpeg,png,jpg,mp4,mov,avi',
+    //         'type_id' => 'required|exists:types,id'
+    //     ]);
+
+    //     if($validator -> fails()){
+
+    //         $data = [
+    //             'status' => 0,
+    //             'message' => $validator -> errors()
+    //         ];
+
+    //         return response() -> json($data, 422);
+    //     }
+
+    //     // $user = Auth::user();
+    //     $citizen = Citizen::where('user_id', 2) -> get();
+
+    //     if(!$citizen){
+    //         $data = [
+    //             'status' => 0,
+    //             'message' => 'Ciudadano no encontrado.'
+    //         ];
+
+    //         return response() -> json($data, 404);
+    //     }
+
+    //     DB::beginTransaction();
+
+    //     try{
+
+    //         $filePath = null;
+    //         if ($request->hasFile('file')) {
+    //             $filePath = $request->file('file')->store('uploads', 'public');
+    //             $fileUrl = asset('storage/' . $filePath);
+    //         }
+
+    //         $newReport = Reports::create([
+    //             'description' => $request -> description,
+    //             'file' => $fileUrl,
+    //             'type_id' => $request -> type_id,
+    //             'status_id' => 1,
+    //             'citizen_id' => $citizen -> id
+    //         ]);
+
+    //         // Crear los datos del evento para Pusher
+    //         $data = [
+    //             'title' => $newReport->description,
+    //             'author' => $citizen->name,
+    //         ];
+
+    //         // Disparar el evento para Pusher
+    //         event(new ReportCreated($data));
+
+    //         DB::commit();
+
+    //         $data = [
+    //             'status' => 1,
+    //             'message' => 'Reporte enviado correctamente.',
+    //             'data' => $newReport,
+    //         ];
+
+    //         return response() -> json($data, 201);
+
+    //     }catch(\Exception $e){
+
+    //         DB::rollback();
+
+    //         Log::error("Error al enviar reporte: " . $e -> getMessage());
+
+    //         $data = [
+    //             'status' => 0,
+    //             'message' => 'Error en el envío del reporte.'
+    //         ];
+
+    //         return response() -> json([$data], 500);
+    //     }
+    // }
+
+    public function store(Request $request)
+{
+
+    $validator = Validator::make($request->all(), [
+        'description' => 'nullable',
+        'file' => 'nullable|file|mimes:jpeg,png,jpg,mp4,mov,avi',
+        'type_id' => 'required|exists:types,id'
+    ]);
+
+    if ($validator->fails()) {
+        $data = [
+            'status' => 0,
+            'message' => $validator->errors()
+        ];
+        return response()->json($data, 422);
+    }
+    
+
+    // Aquí puedes poner un usuario por defecto o buscar al usuario autenticado
+    $user = Auth::user() ?: User::find(2);  // Usuario con id 1 como fallback
+
+    // Intentamos encontrar el ciudadano relacionado
+    $citizen = Citizen::where('user_id', $user->id)->first();
+
+    if (!$citizen) {
+        // Devolver un error si no se encuentra el ciudadano
+        $data = [
+            'status' => 0,
+            'message' => 'Ciudadano no encontrado.'
+        ];
+        return response()->json($data, 404);
+    }
+
+    DB::beginTransaction();
+
+    try {
+        $filePath = null;
+        $fileUrl = null;
+        if ($request->hasFile('file')) {
+            $filePath = $request->file('file')->store('uploads', 'public');
+            $fileUrl = asset('storage/' . $filePath);
+        }
+
+        $newReport = Reports::create([
+            'description' => $request->description,
+            'file' => $fileUrl,
+            'type_id' => $request->type_id,
+            'status_id' => 1,
+            'citizen_id' => $citizen->id
         ]);
 
-        if($validator -> fails()){
+        // Crear los datos del evento para Pusher
+        $data = [
+            'title' => $newReport->type_id,
+            'author' => $newReport->description,
+        ];
 
-            $data = [
-                'status' => 0,
-                'message' => $validator -> errors()
-            ];
+        // Disparar el evento para Pusher
+        event(new ReportCreated($data));
 
-            return response() -> json($data, 422);
-        }
+        DB::commit();
 
-        $user = Auth::user();
-        $citizen = Citizen::where('user_id', $user -> id) -> first();
+        $data = [
+            'status' => 1,
+            'message' => 'Reporte enviado correctamente.',
+            'data' => $newReport,
+        ];
 
-        if(!$citizen){
-            $data = [
-                'status' => 0,
-                'message' => 'Ciudadano no encontrado.'
-            ];
+        return response()->json($data, 201);
 
-            return response() -> json($data, 404);
-        }
+    } catch (\Exception $e) {
+        DB::rollback();
+        Log::error("Error al enviar reporte: " . $e->getMessage());
 
-        DB::beginTransaction();
+        $data = [
+            'status' => 0,
+            'message' => 'Error en el envío del reporte.'
+        ];
 
-        try{
-
-            $filePath = null;
-            if ($request->hasFile('file')) {
-                $filePath = $request->file('file')->store('uploads', 'public');
-                $fileUrl = asset('storage/' . $filePath);
-            }
-
-            $newReport = Reports::create([
-                'description' => $request -> description,
-                'file' => $fileUrl,
-                'type_id' => $request -> type_id,
-                'status_id' => 1,
-                'citizen_id' => $citizen -> id
-            ]);
-
-            DB::commit();
-
-            $data = [
-                'status' => 1,
-                'message' => 'Reporte enviado correctamente.',
-                'data' => $newReport,
-            ];
-
-            return response() -> json($data, 201);
-
-        }catch(\Exception $e){
-
-            DB::rollback();
-
-            Log::error("Error al enviar reporte: " . $e -> getMessage());
-
-            $data = [
-                'status' => 0,
-                'message' => 'Error en el envío del reporte.'
-            ];
-
-            return response() -> json([$data], 500);
-        }
+        return response()->json([$data], 500);
     }
+}
+
 
     public function update(Request $request){
 

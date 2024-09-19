@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reports;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -33,6 +34,11 @@ class ReportsController extends Controller
             ->leftJoin('citizens', 'reports.citizen_id', '=', 'citizens.id')
             ->leftJoin('users', 'citizens.user_id', '=', 'users.id')
             ->get();
+
+            foreach ($reportes as $reporte) {
+                $reporte->formatted_created_at = Carbon::parse($reporte->created_at)
+                    ->translatedFormat('d \d\e F \d\e Y \a \l\a\s H:i \h\r\s');
+            }
 
         // return $reportes;
         return view('reports.all.index', compact('reportes'));

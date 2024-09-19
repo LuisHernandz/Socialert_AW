@@ -16,6 +16,8 @@ return new class extends Migration
             $table->text('description', 100)->nullable();
             $table->string('file', 255)->nullable();
             $table->integer('calification')->nullable();
+            $table->float('latitude', 10, 6)->nullable();
+            $table->float('longitude', 10, 6)->nullable();
             $table->timestamps();
 
             $table->unsignedBigInteger('type_id')->nullable();
