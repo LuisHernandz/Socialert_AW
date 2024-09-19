@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
-  
+
     const limits = {
         'name': 50,
         'lastname': 50,
@@ -32,14 +32,14 @@ document.addEventListener('DOMContentLoaded', function() {
         'passwordone': 30,
         'passwordtwo': 30,
     };
-  
+
     const limitInputLengthWithAlert = (input, maxLength) => {
         if (input.value.length > maxLength) {
             showAlert(`Solo se permiten ${maxLength} caracteres en el campo.`);
             input.value = input.value.slice(0, maxLength);
         }
     };
-  
+
     Object.keys(limits).forEach(function(id) {
         const inputElement = document.getElementById(id);
         if (inputElement) {
@@ -48,21 +48,21 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
-  
+
     // Función para mostrar alerta personalizada
     function showAlert(message) {
         const alertBox = document.getElementById('myAlert');
         const alertOverlay = document.getElementById('alertOverlay');
         const alertMessage = document.getElementById('alertMessage');
-  
+
         alertMessage.textContent = message;
         alertBox.style.display = 'block';
         alertOverlay.style.display = 'block';
     }
-  
+
     // Cerrar alerta al hacer clic en el botón de cerrar
     document.getElementById('closeAlert').addEventListener('click', function() {
         document.getElementById('myAlert').style.display = 'none';
         document.getElementById('alertOverlay').style.display = 'none';
     });
-  });
+});

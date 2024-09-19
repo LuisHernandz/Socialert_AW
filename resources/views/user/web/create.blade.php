@@ -21,7 +21,14 @@
                 <a href="{{route('admins.index')}}">Regresar</a>   
             </div>
         </div>
-        
+        <!-- Div para la nueva alerta personalizada -->
+        <div class="my-alert" id="myAlert">
+            <span class="close-alert" id="closeAlert">&times;</span>
+            <p id="alertMessage"></p>
+        </div>
+        <div class="alert-overlay" id="alertOverlay"></div>
+
+
         <form action="{{route('admins.store')}}" method="POST">
             @csrf
             <div class="card-body">
@@ -92,6 +99,7 @@
 @stop
 
 @section('css')
+<link rel="stylesheet" href="{{{asset('assets/css/alertus.css')}}}">
     <style>
         aside{
             background-color: #08233d !important;
@@ -104,5 +112,5 @@
 @stop
 
 @section('js')
-    <script src="{{ asset('assets/script/logs.js') }}"></script>
+    <script src="{{asset('assets/script/logs.js')}}"></script>
 @stop
