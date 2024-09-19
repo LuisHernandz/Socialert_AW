@@ -95,6 +95,51 @@ class ApiReportsController extends Controller {
         }
     }
 
+    public function create(){
+
+        $user = Auth::user();
+        $citizen = Citizen::where('user_id', $user -> id) -> first();
+
+        if(!$citizen){
+            $data = [
+                'status' => 0,
+                'message' => 'Ciudadano no encontrado.'
+            ];
+
+            return response() -> json($data, 404);
+        }
+
+        try {
+
+            $reportsType = DB::table('types') -> get();
+
+
+            if($reportsType -> isEmpty()){
+                $data = [
+                    'status' => 1,
+                    'message' => "La tabla está vacía."
+                ];
+
+                return response() -> json($data, 204);
+            }
+
+            $data = [
+                'status' => 1,
+                'message' => "Consulta exitosa.",
+                'reports' => $reportsType
+            ];
+
+            return response() -> json($data, 200);
+
+        } catch(\Exception $e){
+            return response() -> json([
+                'status' => 0,
+                'message' => 'Error al consultar la tabla.',
+                'error' => $e -> getMessage()
+            ], 500);
+        }
+    }
+
     public function store(Request $request){
 
         $validator = Validator::make($request -> all(),[
