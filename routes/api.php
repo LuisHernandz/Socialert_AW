@@ -30,11 +30,12 @@ Route::middleware('auth:sanctum') -> group(function(){
     Route::post('/logout-citizen', [ApiCitizenController::class, 'logout_citizen']);
 
     //Citizens routes
-    
+
 
     //Reports routes
     Route::get('/index-reports', [ApiReportsController::class, 'index']);
     Route::get('/show-reports', [ApiReportsController::class, 'show']);
+    Route::get('/create-report', [ApiReportsController::class, 'create']);
     Route::post('/store-report', [ApiReportsController::class, 'store']);
     Route::post('/update-report', [ApiReportsController::class, 'update']);
     Route::delete('/destroy-report', [ApiReportsController::class, 'destroy']);
