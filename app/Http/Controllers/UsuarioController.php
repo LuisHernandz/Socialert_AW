@@ -10,6 +10,10 @@ class UsuarioController extends Controller
     {
         return view('aviso.privacidad');
     }
+    public function term()
+    {
+        return view('aviso.terminos');
+    }
 
     public function profile(){
         return view('profile');

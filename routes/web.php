@@ -42,3 +42,5 @@ Route::middleware([
 });
 
 Route::get('/avisodeprivacidad', [UsuarioController::class, 'show'])->name('privacidad.show');
+Route::get('/terminos', [UsuarioController::class, 'term'])->name('terminos.term');
+
