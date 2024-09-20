@@ -72,4 +72,34 @@ class ReportsController extends Controller
 
         return response()->json($reportes);
     }
+
+    public function update(Request $request, string $id)
+    {
+
+        // return $request;
+
+        // $validacion = $request->validate([
+        //     'name' => 'required|string|max:50|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/', 
+        //     'lastname' => 'required|string|max:50|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/',
+        //     'email' => 'required|string|email|max:50',
+        // ]); 
+
+        $reporte = Reports::find($id);
+        $reporte->status_id = $request->status_id;
+        $reporte->save();
+
+        
+        if ($reporte->status_id === 2) {
+            return redirect()->route('reportes.index')->with([
+                'message' => 'at',
+                'reporte_id' => $reporte->id
+            ]);
+        } else {
+            return redirect()->route('reportes.index')->with([
+                'message' => 'ca',
+                'reporte_id' => $reporte->id
+            ]);
+        }
+        
+    }
 }

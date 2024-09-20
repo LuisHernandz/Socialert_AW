@@ -10,10 +10,18 @@
 @stop
 
 @section('content')
-    @if (session('message') == 'del')
-        <x-adminlte-card title="Ciudano eliminado!" theme="info" removable>
-        </x-adminlte-card>
-    @endif
+    @switch(session('message'))
+        @case('at')
+            <x-adminlte-card title="Se atendió el reporte con id {{ session('reporte_id') }}, el ciudadano confirmará la ayuda." theme="info" removable>
+            </x-adminlte-card>
+            @break
+        @case('ca')
+            <x-adminlte-card title="Se a cancelado el reporte con id {{ session('reporte_id') }}." theme="info" removable>
+            </x-adminlte-card>
+            @break
+        @default
+            
+    @endswitch
 
     <div class="card">
         <div class="card-body">
@@ -78,8 +86,9 @@
                         </tr>
 
                         <x-adminlte-modal id="modalAtender{{$reporte->id}}" title="REPORTE CIUDADANO" theme="" size='lg' disable-animations>
-                            <form action="{{ route('roles.store') }}" method="POST">
+                            <form action="{{ route('reportes.update', $reporte->id) }}" method="POST">
                                 @csrf
+                                @method('PUT')
                                 <div class="card-head bg-gray-400">
                                     <div class="row align-items-center justify-content-between">
                                         <div class="col-md-6">
@@ -154,10 +163,16 @@
                                     <br>
 
                                     @if ($reporte->status === 'Pendiente')
-                                    <details>
-                                        <summary>ATENDER REPORTE</summary>
-                                        ...
-                                    </details>
+                                        <p><b>¿YA HAZ ENVIADO AYUDA A LA UBICACIÓN DEL REPORTE?</b></p>
+                                        <p><i>Si es así, presiona el botón <b>ATENDIDO</b></i></p>
+                                        <input type="hidden" name="status_id" value="2">
+                                        <input type="submit" class="btn btn-primary" value="ATENDIDO">
+                                    @endif
+
+                                    @if ($reporte->status === 'En Proceso')
+                                        <p><b>¿Cancelar la ATENCIÓN?</b></p>
+                                        <input type="hidden" name="status_id" value="1">
+                                        <input type="submit" class="btn btn-danger" value="CANCELAR">
                                     @endif
                                 </div>
                             </form>
@@ -203,7 +218,7 @@
    var channel = pusher.subscribe('my-channel');
    channel.bind('form-submitted', function(data) {
      if (data && data.report && data.report.author && data.report.title) {
-       toastr.success('New Post Created', 'Author: ' + data.report.author + '<br>Title: ' + data.report.title, {
+       toastr.success('NUEVO REPORTE CIUDADANO', 'Tipo: ' + data.report.title + '<br>Descripción: ' + data.report.author, {
          timeOut: 0,  
          extendedTimeOut: 0,  
        });
