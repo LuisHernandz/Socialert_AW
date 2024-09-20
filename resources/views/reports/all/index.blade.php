@@ -138,12 +138,11 @@
                                             <div class="col-sm">
                                                 <p><b>Descripción:</b> {{$reporte->description}}</p>
                                                 <p><b>Realizado Desde:</b></p>
-                                                <div>
-                                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3817.5960722249692!2d-92.06984862585313!3d16.89586451678076!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85f2c1f8b5276b53%3A0x978aebe8eb252468!2sUniversidad%20Tecnol%C3%B3gica%20De%20La%20Selva!5e0!3m2!1ses!2smx!4v1725863903541!5m2!1ses!2smx" 
-                                                        style="border:0;" allowfullscreen="" loading="lazy">
-                                                    </iframe>
+                                                <div class="text-center">
+                                                    <a href="{{ route('reporte.mapa', $reporte->id) }}" class="btn btn-xs text-primary mx-1">
+                                                        <i class="fa fa-lg fa-fw fa-map-marker"></i> Ver Mapa
+                                                    </a>
                                                 </div>
-                                            </div>
                                             <div class="col-sm">
                                                 <p><b>Teléfono:</b> {{$reporte->citizen_phone}}</p>
                                                 <p><b>Recursos Compartidos:</b></p>
