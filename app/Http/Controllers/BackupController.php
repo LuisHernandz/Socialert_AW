@@ -12,7 +12,7 @@ class BackupController extends Controller
     public function Backup()
     {
         $fecha = date('d-m-Y');
-        $nombreArchivo = 'Backup-SOCIALERT' . $fecha . '.zip';
+        $nombreArchivo = 'Respaldo-SOCIALERT' . $fecha . '.zip';
         
         Artisan::call('backup:run', ['--only-db' => true, '--filename' => $nombreArchivo]);
 
