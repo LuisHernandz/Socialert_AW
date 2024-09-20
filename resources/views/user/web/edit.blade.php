@@ -21,7 +21,12 @@
 
                 <h5><b>DATOS:</b></h5>
             </div>
-    
+    <!-- Div para la nueva alerta personalizada -->
+    <div class="my-alert" id="myAlert">
+        <span class="close-alert" id="closeAlert">&times;</span>
+        <p id="alertMessage"></p>
+    </div>
+    <div class="alert-overlay" id="alertOverlay"></div>
             <form action="{{route('admins.update', $usuario)}}" method="POST">
                 @csrf
                 @method('PUT')
@@ -79,6 +84,7 @@
 @stop
 
 @section('css')
+<link rel="stylesheet" href="{{{asset('assets/css/alertus.css')}}}">
     <style>
         aside{
             /* background-color: #00162C !important; */
