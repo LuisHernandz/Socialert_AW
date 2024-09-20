@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\DB;
 
 class ReportsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:crear reportes')->only('create');
+        $this->middleware('can:editar reportes')->only('update');
+        $this->middleware('can:eliminar reportes')->only('destroy');
+    }
+
     public function index()
     {
         $reportes = DB::table('reports')

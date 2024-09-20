@@ -78,7 +78,12 @@
                                         </a>
                                     @endcan
 
-                                    {!! $btnDetails !!}
+                                    <button class="btn btn-xs text-primary mx-1" 
+                                        data-toggle="modal" 
+                                        data-target="#modalPurple{{$usuario->id}}">
+                                        <i class="fa fa-lg fa-fw fa-info-circle"></i>
+                                    </button>
+
                                     @can('eliminar usuarios web')
                                         <form action="{{route('admins.destroy', $usuario)}}" method="POST" class="formEliminar d-inline">
                                             @csrf
@@ -91,26 +96,26 @@
                             @endif
                         </td>
                     </tr>
+
+                    {{-- Modal --}}
+                    <x-adminlte-modal id="modalPurple{{$usuario->id}}" title="Más Información" theme="primary" size='sm' disable-animations>
+                        <form action="{{route('roles.store')}}" method="POST">
+                            @csrf
+                            <div class="card-body">
+                                <div class="row text-gray">
+                                    <p><b>Nombre:</b> {{$usuario->name}}</p>
+                                    <p><b>Apellidos:</b> {{$usuario->lastname}}</p>
+                                    <p><b>Email:</b> {{$usuario->email}}</p>
+                                    <p><b>Estado:</b> {{$usuario->status}}</p>
+                                    <p><b>Creado En:</b> {{$usuario->created_at}}</p>
+                                </div>
+                            </div>
+                        </form>
+                    </x-adminlte-modal>
                 @endforeach
             </x-adminlte-datatable>
         </div>
     </div>
-
-    {{-- Modal --}}
-    <x-adminlte-modal id="modalPurple" title="Más Información" theme="primary" size='sm' disable-animations>
-        <form action="{{route('roles.store')}}" method="POST">
-            @csrf
-            <div class="card-body">
-                <div class="row text-gray">
-                    <p><b>Nombre:</b> {{$usuario->name}}</p>
-                    <p><b>Apellidos:</b> {{$usuario->lastname}}</p>
-                    <p><b>Email:</b> {{$usuario->email}}</p>
-                    <p><b>Estado:</b> {{$usuario->status}}</p>
-                    <p><b>Creado En:</b> {{$usuario->created_at}}</p>
-                </div>
-            </div>
-        </form>
-    </x-adminlte-modal>
 @stop
 
 @section('css')

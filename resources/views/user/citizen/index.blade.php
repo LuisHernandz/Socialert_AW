@@ -76,9 +76,21 @@
                                 <p><b>Teléfono:</b> {{$citizen->phone}}</p>
                             </div>
                             <div class="col-sm">
-                                <p><b>Género:</b> {{$citizen->gender}}</p>
+                                <p><b>Género:</b>
+                                    @switch($citizen->gender)
+                                        @case('M')
+                                            Masculino
+                                            @break
+                                        @case('F')
+                                            Femenino
+                                            @break
+                                            No especificado
+                                        @default
+                                            
+                                    @endswitch
+                                </p>
                                 <p><b>Estado:</b> {{$citizen->status}}</p>
-                                <p><b>Creado En:</b> {{$citizen->created_at}}</p>
+                                <p><b>Creación:</b> {{$citizen->created_at}}</p>
                             </div>
                         </div>
                     </div>

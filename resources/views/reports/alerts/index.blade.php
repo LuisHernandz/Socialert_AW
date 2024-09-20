@@ -86,11 +86,13 @@
                                 @endswitch
                             </td> --}}
                             <td class="text-center">
-                                <button class="btn btn-xs text-primary mx-1" 
-                                    data-toggle="modal" 
-                                    data-target="#modalAtender{{$alerta->id}}">
-                                    <i class="fa fa-lg fa-fw fa-bell"></i>
-                                </button>
+                                @can('editar reportes')
+                                    <button class="btn btn-xs text-primary mx-1" 
+                                        data-toggle="modal" 
+                                        data-target="#modalAtender{{$alerta->id}}">
+                                        <i class="fa fa-lg fa-fw fa-bell"></i>
+                                    </button>
+                                @endcan
                                 {{-- @can('eliminar reportes')
                                     <form action="{{route('reportes.destroy', $reporte->id)}}" method="POST" class="formEliminar d-inline">
                                         @csrf
@@ -192,7 +194,7 @@
 
         .btn-tool{
             margin: 0
-        }
+        } 
     </style>
 @stop
 

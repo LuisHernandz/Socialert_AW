@@ -12,6 +12,13 @@ class AlertController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        $this->middleware('can:crear reportes')->only('create');
+        $this->middleware('can:editar reportes')->only('store');
+        $this->middleware('can:eliminar reportes')->only('destroy');
+    }
+
     public function index()
     {
         $alertas = Alert::with(['citizen.user'])->get();

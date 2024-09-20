@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\DB;
 
 class CitizenController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:eliminar ciudadanos')->only('destroy');
+    }
+    
     public function index()
     {
         $citizens = DB::table('citizens')
@@ -17,12 +23,12 @@ class CitizenController extends Controller
             'citizens.phone',
             'citizens.gender',
             'citizens.curp',
-            'citizens.created_at',
             'users.id',
             'users.name',
             'users.lastname',
             'users.email',
-            'users.status'
+            'users.status',
+            'users.created_at'
         )->get();
 
         // return response()->json($citizens);

@@ -29,6 +29,8 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'crear roles', 'guard_name' => 'sanctum'],
             ['name' => 'editar roles', 'guard_name' => 'sanctum'],
             ['name' => 'eliminar roles', 'guard_name' => 'sanctum'],
+
+            ['name' => 'backup', 'guard_name' => 'sanctum'],
         ];
 
         // Insertar los permisos en la base de datos

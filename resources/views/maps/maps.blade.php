@@ -55,3 +55,22 @@
         });
     </script>
 @stop
+
+@section('css')
+    <style>
+        aside{
+            /* background-color: #00162C !important; */
+            background-color: #08233d !important;
+        }
+
+        .layout-navbar-fixed .wrapper .sidebar-dark-primary .brand-link:not([class*="navbar"]){
+            background-color: transparent !important;
+        }
+
+        .btn-default{
+            border: none;
+            background-color: inherit;
+            box-shadow: none !important;
+        }
+    </style>
+@stop

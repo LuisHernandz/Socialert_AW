@@ -4,7 +4,8 @@
 @section('content_header')
     <h1><b>ROLES</b></h1> 
 
-    @if (session())
+    <div style="margin-top: 1rem">
+        @if (session())
         @if (session('message') == 'ok')
             <x-adminlte-card title="Permisos asignados!" theme="info" icon="fas fa-lg fa-bell" removable style="font-size: .9rem" class="my-2">
             </x-adminlte-card>
@@ -36,6 +37,7 @@
             </button>
         </div>
     @endif
+    </div>
 @stop
 
 @section('content')
