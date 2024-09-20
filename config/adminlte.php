@@ -319,6 +319,13 @@ return [
             'icon' => 'fas fa-fw fa-home',
             // 'can' => ['gestionar usuarios'],  
         ],
+        [
+            'text' => 'Perfil',
+            'url' => '/profile',
+            'icon' => 'fas fa-fw fa-user',
+            // 'can' => ['gestionar usuarios'],  
+        ],
+        /*
         /*
         [
             'text' => 'pages',

@@ -39,9 +39,33 @@
 @stop
 
 @section('css')
-    {{-- Add here extra stylesheets --}}
-    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css"> --}}
+    <style>
+        aside{
+            /* background-color: #00162C !important; */
+            background-color: #08233d !important;
+        }
+
+        .layout-navbar-fixed .wrapper .sidebar-dark-primary .brand-link:not([class*="navbar"]){
+            background-color: transparent !important;
+        }
+
+        .btn-default{
+            border: none;
+            background-color: inherit;
+            box-shadow: none !important;
+        }
+
+        .card-body{
+            overflow-y: scroll;
+        }
+
+        .btn-tool{
+            margin: 0
+        }
+    </style>
 @stop
+
 
 @section('js')
     <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
