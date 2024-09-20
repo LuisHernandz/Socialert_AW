@@ -12,7 +12,7 @@
 @section('content')
     @switch(session('message'))
         @case('a')
-            <x-adminlte-card title="Se atendió el reporte con id {{ session('reporte_id') }}, el ciudadano confirmará la ayuda." theme="info" removable>
+            <x-adminlte-card title="Alerta atendida, consulta el reporte con id {{ session('reporte_id') }}." theme="info" removable>
             </x-adminlte-card>
             @break
         @case('c')
@@ -146,11 +146,18 @@
                                     </details> --}}
                                     <br>
 
+                                    @if ($alerta->reports_id)
+                                    ESTA ALERTA YA HA SIDO ATENDIDA. CONSULTA EL REPORTE CON ID {{$alerta->reports_id}}
+                                    @else
                                         <p><b>¿YA HAZ ENVIADO AYUDA A LA UBICACIÓN DE LA ALERTA?</b></p>
                                         <p><i>Si es así, presiona el botón <b>CREAR REPORTE</b> para convertir la alerta a un reporte y mejorar su seguimiento.</i></p>
+                                        <input type="hidden" name="alert_id" value="{{$alerta->id}}">
                                         <input type="hidden" name="citizen_id" value="{{$alerta->citizen_id}}">
                                         {{-- <input type="hidden" name="user_id" value="{{ auth()->user()->id }}"> --}}
                                         <input type="submit" class="btn btn-primary" value="CREAR REPORTE">
+                                    @endif
+
+   
 
 
                                         {{-- <div class="row">

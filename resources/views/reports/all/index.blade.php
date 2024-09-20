@@ -67,7 +67,13 @@
                     @foreach($reportes as $reporte)
                         <tr>
                             <td>{{$reporte->id}}</td>
-                            <td>{{$reporte->type}}</td>
+                            <td>
+                                @if ($reporte->type)
+                                {{$reporte->type}}
+                                @else
+                                    <small>ALERTA DE PÁNICO</small>
+                                @endif
+                            </td>
                             <td>{{$reporte->description}}</td>
                             <td>{{$reporte->formatted_created_at }}</td>
                             <td>
@@ -84,8 +90,11 @@
                                     @case('No Atendida')
                                         <span class="badge badge-secondary right">{{ $reporte->status }}</span>
                                         @break
-                                    @default
+                                    @case('En Proceso')
                                         <span class="badge badge-info right">{{ $reporte->status }}</span>
+                                        @break
+                                    @default
+                                        
                                 @endswitch
                             </td>
                             <td class="text-center">
@@ -163,7 +172,14 @@
                                                 </p>
                                                 
                                             @endif
-                                            <p><b>TIPO DE REPORTE:</b> {{$reporte->type}}</p>
+                                            <p>
+                                                <b>TIPO DE REPORTE:</b> 
+                                                @if ($reporte->type)
+                                                    {{$reporte->type}}
+                                                @else
+                                                    <small>ALERTA DE PÁNICO</small>
+                                                @endif
+                                            </p>
                                         </div>
                                         <div class="col-md-6">
                                             <p><i><b>Realizado el</b> {{$reporte->formatted_created_at }}</i></p>

@@ -49,8 +49,20 @@ class AlertController extends Controller
         // return $request;
         $reporte = new Reports();
         $reporte->description = "Alerta emitida mediante botón de pánico.";
+        // $reporte->latitude = $request->latitude;
+        // $reporte->longitude = $request->longitude;
         $reporte->citizen_id = $request->citizen_id;
+        $reporte->status_id = 2;
         $reporte->save();
+
+        $alerta = Alert::find($request->alert_id);
+        $alerta->reports_id = $reporte->id;
+        $alerta->save();
+
+        return redirect()->route('alertas.index')->with([
+            'message' => 'a',
+            'reporte_id' => $reporte->id
+        ]);
 
         // return $reporte;
     }
