@@ -27,9 +27,6 @@
             $btnDelete = '<button type="submit" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Eliminar">
                             <i class="fa fa-lg fa-fw fa-trash"></i>
                         </button>';
-            $btnDetails = '<button class="btn btn-xs btn-default text-primary mx-1 shadow" title="Ver más" data-toggle="modal" data-target="#modalPurple">
-                            <i class="fa fa-lg fa-fw fa-info-circle"></i>
-                        </button>';
             $config = [
                 'language' => [
                     'url' => 'https://cdn.datatables.net/plug-ins/2.1.5/i18n/es-MX.json'
@@ -51,7 +48,11 @@
                 <td>{{$citizen->curp}}</td>
                 <td>{{$citizen->phone}}</td>
                 <td class="text-center">
-                    {!! $btnDetails !!}
+                    <button class="btn btn-xs text-primary mx-1" 
+                        data-toggle="modal" 
+                        data-target="#modalPurple{{$citizen->id}}">
+                        <i class="fa fa-lg fa-fw fa-bell"></i>
+                    </button>
                     @can('eliminar usuarios')
                         <form action="{{route('citizens.destroy', $citizen->citizen_id)}}" method="POST" class="formEliminar d-inline">
                             @csrf
@@ -61,36 +62,34 @@
                     @endcan
                 </td>
             </tr>
+
+            {{-- Modal --}}
+            <x-adminlte-modal id="modalPurple{{$citizen->id}}" title="Más Información" theme="primary" size='lg' disable-animations>
+                <form action="{{route('roles.store')}}" method="POST">
+                    @csrf
+                    <div class="card-body">
+                        <div class="row text-gray">
+                            <div class="col-sm">
+                                <p><b>Nombre Completo:</b> {{$citizen->name}} {{$citizen->lastname}}</p>
+                                <p><b>Email:</b> {{$citizen->email}}</p>
+                                <p><b>CURP:</b> {{$citizen->curp}}</p>
+                                <p><b>Teléfono:</b> {{$citizen->phone}}</p>
+                            </div>
+                            <div class="col-sm">
+                                <p><b>Género:</b> {{$citizen->gender}}</p>
+                                <p><b>Estado:</b> {{$citizen->status}}</p>
+                                <p><b>Creado En:</b> {{$citizen->created_at}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </x-adminlte-modal>
+
         @endforeach
     @endif
 </x-adminlte-datatable>
         </div>
     </div>
-
-    @if($citizens->isEmpty())
-    @else
-    {{-- Modal --}}
-    <x-adminlte-modal id="modalPurple" title="Más Información" theme="primary" size='lg' disable-animations>
-        <form action="{{route('roles.store')}}" method="POST">
-            @csrf
-            <div class="card-body">
-                <div class="row text-gray">
-                    <div class="col-sm">
-                        <p><b>Nombre Completo:</b> {{$citizen->name}} {{$citizen->lastname}}</p>
-                        <p><b>Email:</b> {{$citizen->email}}</p>
-                        <p><b>CURP:</b> {{$citizen->curp}}</p>
-                        <p><b>Teléfono:</b> {{$citizen->phone}}</p>
-                    </div>
-                    <div class="col-sm">
-                        <p><b>Género:</b> {{$citizen->gender}}</p>
-                        <p><b>Estado:</b> {{$citizen->status}}</p>
-                        <p><b>Creado En:</b> {{$citizen->created_at}}</p>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </x-adminlte-modal>
-    @endif
 @stop
 
 @section('css')

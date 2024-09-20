@@ -396,6 +396,12 @@ return [
             'icon' => 'fas fa-fw fa-server',
             // 'can' => ['gestionar usuarios'],    
         ],
+        [
+            'text' => 'Mapa general',
+            'route' => 'maps',
+            'icon' => 'fas fa-fw fa-server',
+            // 'can' => ['gestionar usuarios'],    
+        ],
         // [
         //     'text' => 'important',
         //     'icon_color' => 'red',

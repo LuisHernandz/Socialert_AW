@@ -12,6 +12,8 @@ use DragonCode\Contracts\Cashier\Config\Queues\Names;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Contracts\Permission;
 use App\Http\Controllers\BackupController;
+use App\Http\Controllers\MapController;
+use App\Http\Controllers\ReportMapController;
 
  
 Route::middleware([
@@ -32,6 +34,10 @@ Route::middleware([
     Route::get('/reportes/getReportes', [ReportsController::class, 'show'])->name('reportes.show');
 
     Route::get('/backup', [BackupController::class, 'Backup'])->name('backup');
+
+    Route::get('/mapa', [MapController::class, 'mostrarMapa'])->name('maps');
+
+    Route::get('/reporte/mapa/{id}', [ReportMapController::class, 'mostrarReporteMapa'])->name('reporte.mapa');
 
 });
 
