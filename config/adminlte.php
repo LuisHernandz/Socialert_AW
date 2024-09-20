@@ -376,28 +376,18 @@ return [
         [
             'text' => 'Reportes',
             'icon' => 'fas fa-fw fa-paper-plane',
-            'can' => ['gestionar reportes', 'consultar reportes'],    
-            'submenu' => [
-                [
-                    'text' => 'Todas',
-                    'route' => 'reportes.index',
-                    'can' => ['gestionar reportes', 'consultar reportes'],  
-                ],
-                [
-                    'text' => 'Atendidas',
-                    'icon_color' => 'green',
-                    'route' => '',
-                    'label' => '2 nuevos',
-                    'label_color' => 'success',
-                    'can' => ['gestionar reportes', 'consultar reportes'],  
-                ],
-                [
-                    'text' => 'Pendientes',
-                    'icon_color' => 'yellow',
-                    'route' => '',
-                    'can' => ['gestionar reportes', 'consultar reportes'],  
-                ],
-            ],
+            'route' => 'reportes.index',
+            'can' => ['gestionar reportes', 'consultar reportes'],   
+            // 'label' => '2 nuevos',
+            'label_color' => 'success', 
+        ],
+        [
+            'text' => 'Alertas',
+            'icon' => 'fas fa-fw fa-exclamation-circle',
+            'route' => 'alertas.index',
+            'can' => ['gestionar reportes', 'consultar reportes'],   
+            // 'label' => '2 nuevos',
+            'label_color' => 'success', 
         ],
         ['header' => 'OTROS'],
         [

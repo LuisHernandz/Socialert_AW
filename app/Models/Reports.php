@@ -27,4 +27,9 @@ class Reports extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+
+    public function alerts()
+    {
+        return $this->hasMany('App\Models\Alert');
+    }
 }

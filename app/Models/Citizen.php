@@ -24,4 +24,9 @@ class Citizen extends Model
     {
         return $this->hasMany('App\Models\Reports');
     }
+
+    public function alerts()
+    {
+        return $this->hasMany('App\Models\Alert');
+    }
 }
