@@ -17,6 +17,8 @@ class StatusSeeder extends Seeder
             ['name' => 'Pendiente'],
             ['name' => 'En Proceso'],
             ['name' => 'Atendida'],
+            ['name' => 'No Atendida'],
+            ['name' => 'Falsa'],
         ]);
     }
 }

@@ -11,16 +11,23 @@
 
 @section('content')
     @switch(session('message'))
-        @case('at')
+        @case('a')
             <x-adminlte-card title="Se atendió el reporte con id {{ session('reporte_id') }}, el ciudadano confirmará la ayuda." theme="info" removable>
             </x-adminlte-card>
             @break
-        @case('ca')
+        @case('c')
             <x-adminlte-card title="Se a cancelado el reporte con id {{ session('reporte_id') }}." theme="info" removable>
             </x-adminlte-card>
             @break
-        @default
-            
+        @case('f')
+            <x-adminlte-card title="El reporte con id {{ session('reporte_id') }} se a marcado como FALSA." theme="info" removable>
+            </x-adminlte-card>
+            @break
+        @case('del')
+            <x-adminlte-card title="Se eliminó el reporte con id {{ session('reporte_id') }}." theme="info" removable>
+            </x-adminlte-card>
+            @break
+        @default     
     @endswitch
 
     <div class="card">
@@ -62,17 +69,24 @@
                             <td>{{$reporte->id}}</td>
                             <td>{{$reporte->type}}</td>
                             <td>{{$reporte->description}}</td>
-                            <td>{{$reporte->created_at}}</td>
+                            <td>{{$reporte->formatted_created_at }}</td>
                             <td>
-                                @if ($reporte->status === "Pendiente")
-                                    <span class="badge badge-warning right">{{$reporte->status}}</span>
-                                @else
-                                    @if ($reporte->status === "Atendida")
-                                        <span class="badge badge-success right">{{$reporte->status}}</span>  
-                                    @else
-                                        <span class="badge badge-info right">{{$reporte->status}}</span>
-                                    @endif
-                                @endif
+                                @switch($reporte->status)
+                                    @case('Pendiente')
+                                        <span class="badge badge-warning right">{{ $reporte->status }}</span>
+                                        @break
+                                    @case('Atendida')
+                                        <span class="badge badge-success right">{{ $reporte->status }}</span>
+                                        @break
+                                    @case('Falsa')
+                                        <span class="badge badge-danger right">{{ $reporte->status }}</span>
+                                        @break
+                                    @case('No Atendida')
+                                        <span class="badge badge-secondary right">{{ $reporte->status }}</span>
+                                        @break
+                                    @default
+                                        <span class="badge badge-info right">{{ $reporte->status }}</span>
+                                @endswitch
                             </td>
                             <td class="text-center">
                                 {{-- {!! $btnEdit !!} --}}
@@ -81,7 +95,13 @@
                                     data-target="#modalAtender{{$reporte->id}}">
                                     <i class="fa fa-lg fa-fw fa-bell"></i>
                                 </button>
-                                {!! $btnDelete !!} 
+                                @can('eliminar reportes')
+                                    <form action="{{route('reportes.destroy', $reporte->id)}}" method="POST" class="formEliminar d-inline">
+                                        @csrf
+                                        @method('delete')
+                                        {!! $btnDelete !!} 
+                                    </form>
+                                @endcan
                             </td>
                         </tr>
 
@@ -90,59 +110,75 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="card-head bg-gray-400">
+                                    @if ($reporte->status === 'No Atendida')
+                                        <p><i>El ciudadano no obtuvo el servicio.</i></p>     
+                                    @endif
+
                                     <div class="row align-items-center justify-content-between">
                                         <div class="col-md-6">
                                             <p><b>ESTADO:</b>
                                                 <span style="font-size: 1.2rem; text-transform: uppercase;">
-                                                    @if ($reporte->status === 'Pendiente')
-                                                    <span class="badge badge-warning right">Pendiente</span>
-                                                    @elseif ($reporte->status === 'Atendida')
-                                                        <span class="badge badge-success right">Atendida</span>
-                                                    @else
-                                                        <span class="badge badge-info right">En Proceso</span>
-                                                    @endif
+                                                    @switch($reporte->status)
+                                                        @case('Pendiente')
+                                                            <span class="badge badge-warning right">{{ $reporte->status }}</span>
+                                                            @break
+                                                        @case('Atendida')
+                                                            <span class="badge badge-success right">{{ $reporte->status }}</span>
+                                                            @break
+                                                        @case('Falsa')
+                                                            <span class="badge badge-danger right">{{ $reporte->status }}</span>
+                                                            @break
+                                                        @case('No Atendida')
+                                                            <span class="badge badge-secondary right">{{ $reporte->status }}</span>
+                                                            @break
+                                                        @default
+                                                            <span class="badge badge-info right">{{ $reporte->status }}</span>
+                                                    @endswitch
                                                 </span>
                                             </p>
-                                            @if ($reporte->status === 'Atendida')
-                                            <p>
-                                                <b>CALIFICACIÓN:</b>
-                                                @switch($reporte->calification)
-                                                    @case(1)
-                                                        ⭐
-                                                        @break
-                                                    @case(2)
-                                                        ⭐⭐
-                                                        @break
-                                                    @case(3)
-                                                        ⭐⭐⭐
-                                                        @break
-                                                    @case(4)
-                                                        ⭐⭐⭐⭐
-                                                        @break
-                                                    @case(5)
-                                                        ⭐⭐⭐⭐⭐
-                                                        @break
-                                                    @default
-                                                        <p>No calificación</p>
-                                                @endswitch
-
-                                            </p>
-                                            
+                                            @if ($reporte->status === 'Atendida' || $reporte->status === 'No Atendida')
+                                                <p>
+                                                    <b>CALIFICACIÓN:</b>
+                                                    @switch($reporte->calification)
+                                                        @case(1)
+                                                            ⭐
+                                                            @break
+                                                        @case(2)
+                                                            ⭐⭐
+                                                            @break
+                                                        @case(3)
+                                                            ⭐⭐⭐
+                                                            @break
+                                                        @case(4)
+                                                            ⭐⭐⭐⭐
+                                                            @break
+                                                        @case(5)
+                                                            ⭐⭐⭐⭐⭐
+                                                            @break
+                                                        @default
+                                                            El servicio aún no ha sido calificado por el ciudadano.
+                                                    @endswitch
+                                                </p>
+                                                
                                             @endif
                                             <p><b>TIPO DE REPORTE:</b> {{$reporte->type}}</p>
                                         </div>
                                         <div class="col-md-6">
                                             <p><i><b>Realizado el</b> {{$reporte->formatted_created_at }}</i></p>
                                             <p><i><b>Reportado Por:</b> {{$reporte->user_name}} {{$reporte->user_lastname}}</i></p>
-                                            @if ($reporte->status === 'Atendida')
-                                                <p><i><b>Atendido Por:</b> {{$reporte->user_name}} {{$reporte->user_lastname}} (Teniente)</i></p>
+                                            @if ($reporte->status === 'Atendida' || $reporte->status === 'En Proceso' || $reporte->status === 'Falsa' || $reporte->status === 'No Atendida')
+                                                <p><i><b>Atendido Por:</b> {{$reporte->userAt_name}} {{$reporte->userAt_lastname}}</i></p>
                                             @endif
+                                            @if ($reporte->status === 'Atendida')
+                                            <p><i><b>Atendido El:</b> {{$reporte->formatted_updated_at}}</i></p>
+                                        @endif
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-body">     
                                     <details>
-                                        <summary>MÁS DETALLES</summary>
+                                        <summary>MÁS INFORMACIÓN DEL REPORTE</summary>
+                                        <br>
                                         <div class="row">
                                             <div class="col-sm">
                                                 <p><b>Descripción:</b> {{$reporte->description}}</p>
@@ -151,28 +187,74 @@
                                                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3817.5960722249692!2d-92.06984862585313!3d16.89586451678076!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85f2c1f8b5276b53%3A0x978aebe8eb252468!2sUniversidad%20Tecnol%C3%B3gica%20De%20La%20Selva!5e0!3m2!1ses!2smx!4v1725863903541!5m2!1ses!2smx" 
                                                         style="border:0;" allowfullscreen="" loading="lazy">
                                                     </iframe>
-                                                </div>
+                                                </div><br>
                                             </div>
                                             <div class="col-sm">
-                                                <p><b>Teléfono:</b> {{$reporte->citizen_phone}}</p>
                                                 <p><b>Recursos Compartidos:</b></p>
+                                                @if ($reporte->file)
+                                                    {{-- <p>El archivo existe: <a href="{{ $reporte->file }}" target="_blank">Descargar archivo</a></p> --}}
+                                                @else
+                                                    <p>No se compartieron archivos por parte del ciudadano.</p>
+                                                @endif
+                                            
+                                            </div>
+                                            <div>
+                                                <p>
+                                                    <b>Comentarios/Sugerencias:</b>
+                                                    @if ($reporte->citizen_gender)
+                                                        <i>No se realizaron comentarios por parte del ciudadano.</i>
+                                                    @else
+                                                        {{$reporte->comment}}
+                                                    @endif
+                                                </p>
                                             </div>
                                         </div>
                                     </details>
-
+                                    <hr>
+                                    <details>
+                                        <summary>MÁS INFORMACIÓN DEL CIUDADANO</summary>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <p><b>CURP:</b> {{$reporte->citizen_curp}}</p>
+                                                <p><b>Número de teléfono:</b> {{$reporte->citizen_phone}}</p>
+                                                <p><b>Género: </b>
+                                                    @switch($reporte->citizen_gender)
+                                                        @case("M")
+                                                            Masculino
+                                                            @break
+                                                        @case("F")
+                                                            Femenino
+                                                            @break
+                                                        @default
+                                                            No especificado.
+                                                    @endswitch
+                                                </p>
+                                            </div>
+                                            <div class="col-sm">
+                                                <p><b>Nombre completo:</b> {{$reporte->user_name}} {{$reporte->user_lastname}}</p>
+                                                <p><b>Correo Electrónico:</b> {{$reporte->user_email}}</p>                
+                                                <p><b>Se registró el:</b> {{$reporte->formatted_user_created_at}}</p>                
+                                            </div>
+                                        </div>
+                                    </details>
                                     <br>
-
                                     @if ($reporte->status === 'Pendiente')
                                         <p><b>¿YA HAZ ENVIADO AYUDA A LA UBICACIÓN DEL REPORTE?</b></p>
                                         <p><i>Si es así, presiona el botón <b>ATENDIDO</b></i></p>
                                         <input type="hidden" name="status_id" value="2">
+                                        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                         <input type="submit" class="btn btn-primary" value="ATENDIDO">
                                     @endif
 
                                     @if ($reporte->status === 'En Proceso')
-                                        <p><b>¿Cancelar la ATENCIÓN?</b></p>
-                                        <input type="hidden" name="status_id" value="1">
-                                        <input type="submit" class="btn btn-danger" value="CANCELAR">
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <input type="hidden" name="status_id" value="1">    
+                                                <p><b>¿Cancelar la ATENCIÓN?</b></p>
+                                                <input type="submit" class="btn btn-danger" value="CANCELAR">
+                                            </div>
+                                        </div>
                                     @endif
                                 </div>
                             </form>
@@ -185,7 +267,7 @@
 @stop
 
 @section('css')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <style>
         aside{
             /* background-color: #00162C !important; */
@@ -205,28 +287,55 @@
         .card-body{
             overflow-y: scroll;
         }
+
+        .btn-tool{
+            margin: 0
+        }
     </style>
 @stop
 
 @section('js')
+    <script>
+        Pusher.logToConsole = true;
+        var pusher = new Pusher('77e443e085266d4f2f06', {
+            cluster: 'us2'
+        });
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('form-submitted', function(data) {
+            if (data && data.report && data.report.author && data.report.title) {
+            toastr.success('NUEVO REPORTE CIUDADANO', 'Tipo: ' + data.report.title + '<br>Descripción: ' + data.report.author, {
+                timeOut: 0,  
+                extendedTimeOut: 0,  
+            });
+            } else {
+            console.error('Invalid data structure received:', data);
+            }
+        });
+    </script>
 
-<script>
-    Pusher.logToConsole = true;
-   var pusher = new Pusher('77e443e085266d4f2f06', {
-     cluster: 'us2'
-   });
-   var channel = pusher.subscribe('my-channel');
-   channel.bind('form-submitted', function(data) {
-     if (data && data.report && data.report.author && data.report.title) {
-       toastr.success('NUEVO REPORTE CIUDADANO', 'Tipo: ' + data.report.title + '<br>Descripción: ' + data.report.author, {
-         timeOut: 0,  
-         extendedTimeOut: 0,  
-       });
-     } else {
-       console.error('Invalid data structure received:', data);
-     }
-   });
-   
-</script>
+    <script>
+        // Cuando el documento termina de cargarse...
+        $(document).ready(function(){
+            $('.formEliminar').submit(function(e){ // Disparar funcion Anonima a partir del submit
+                e.preventDefault();
+                Swal.fire({
+                    title: "¿Eliminar este reporte?",
+                    text: "No podrás revertir esta acción.",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    cancelButtonText: "Cancelar",
+                    confirmButtonText: "Confirmar",
+                    customClass: {
+                        title: 'title-custom' // Clase personalizada
+                    }
 
+                }).then((result) => {
+                if (result.isConfirmed) {
+                        this.submit();
+                    }
+                });
+            })
+        })
+    </script>
 @stop

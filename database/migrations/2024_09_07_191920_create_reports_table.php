@@ -16,6 +16,7 @@ return new class extends Migration
             $table->text('description', 100)->nullable();
             $table->string('file', 255)->nullable();
             $table->integer('calification')->nullable();
+            $table->string('comment', 255)->nullable();
             $table->float('latitude', 10, 6)->nullable();
             $table->float('longitude', 10, 6)->nullable();
             $table->timestamps();
@@ -23,10 +24,12 @@ return new class extends Migration
             $table->unsignedBigInteger('type_id')->nullable();
             $table->unsignedBigInteger('status_id')->nullable();
             $table->unsignedBigInteger('citizen_id')->nullable();
+            $table->unsignedBigInteger('userAt_id')->nullable();
 
             $table->foreign('type_id')->references('id')->on('types')->onDelete('set null')->onUpdate('cascade');
             $table->foreign('status_id')->references('id')->on('status')->onDelete('set null')->onUpdate('cascade');
             $table->foreign('citizen_id')->references('id')->on('citizens')->onDelete('set null')->onUpdate('cascade');
+            $table->foreign('userAt_id')->references('id')->on('users')->onDelete('set null')->onUpdate('cascade');
         });
     }
 
