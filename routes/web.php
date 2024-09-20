@@ -33,3 +33,4 @@ Route::middleware([
 
 });
 
+Route::get('/avisodeprivacidad', [UsuarioController::class, 'show'])->name('privacidad.show');

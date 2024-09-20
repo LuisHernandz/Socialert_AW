@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
 {
+    public function show()
+    {
+        return view('aviso.privacidad');
+    }
+
     public function profile(){
         return view('profile');
     }

@@ -81,6 +81,15 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $role = Role::find($id);
+
+        if ($role) {
+            if ($role->users()->count() > 0) {
+                return redirect()->route('roles.index')->with('error', 'No se puede eliminar el rol porque está asociado a uno o más usuarios.');
+            }
+            $role->delete();
+            return redirect()->route('roles.index')->with('message', 'Rol eliminado con éxito.');
+        }
+        return redirect()->route('roles.index')->with('error', 'Rol no encontrado.');
     }
 }
