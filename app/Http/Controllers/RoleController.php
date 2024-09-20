@@ -42,10 +42,16 @@ class RoleController extends Controller
         //     'name' => $request->nombre,
         // ]);
 
-        $rol = new Role();
-        $rol->name = $request->nombre;
-        $rol->save();
-        return back();
+        $nombre = $request->nombre;
+
+        if (preg_match('/^[a-záéíóúñ0-9 ]+$/i', $nombre)) {
+            $rol = new Role();
+            $rol->name = $nombre;
+            $rol->save();
+            return back()->with('success', 'Rol creado correctamente.');
+        } else {
+            return back()->with('error', 'El nombre del rol solo puede contener letras, acentos y números.');
+        }
     }
 
     /**
