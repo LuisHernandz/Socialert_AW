@@ -13,6 +13,8 @@ class Reports extends Model
         'description',
         'file',
         'calification',
+        'latitude',
+        'longitude',
         'type_id',
         'status_id',
         'citizen_id'
