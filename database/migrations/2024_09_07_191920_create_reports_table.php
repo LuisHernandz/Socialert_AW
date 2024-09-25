@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('comment', 255)->nullable();
             $table->float('latitude', 10, 6)->nullable();
             $table->float('longitude', 10, 6)->nullable();
+            $table->boolean('alert')->default(false);
             $table->timestamps();
 
             $table->unsignedBigInteger('type_id')->nullable();
