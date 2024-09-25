@@ -18,18 +18,9 @@ class ApiReportsController extends Controller {
 
     public function index(){
         try {
-            $reportsColumns = DB::getSchemaBuilder()->getColumnListing('reports');
-            $reportsColumns = array_diff($reportsColumns, ['citizen_id']);
-            $reportsColumns = array_map(function($column){
-                return 'reports.' . $column;
-            }, $reportsColumns);
-
-            $allReports = DB::table('reports')
-            -> leftJoin('status', 'reports.status_id', '=', 'status.id')
-            -> leftJoin('types', 'reports.type_id', '=', 'types.id')
-            -> select(
-                array_merge($reportsColumns, ['status.name as status_name', 'types.name as type_name'])
-            )
+            $allReports = DB::table('reports as r')
+            -> leftJoin('types', 'r.type_id', '=', 'types.id')
+            -> select('r.id','r.description','r.file', 'r.updated_at','types.name as type_name')
             -> get();
 
 
