@@ -141,7 +141,7 @@ class ApiReportsController extends Controller {
             'file' => 'nullable|file|mimes:jpeg,png,jpg,mp4,mov,avi',
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',
-            'type_id' => 'required|exists:types,id'
+            'type_id' => 'required|exists:types,id',
         ]);
 
         if ($validator->fails()) {
@@ -180,7 +180,8 @@ class ApiReportsController extends Controller {
                 'longitude' => $request -> longitude,
                 'type_id' => $request->type_id,
                 'status_id' => 1,
-                'citizen_id' => $citizen->id
+                'citizen_id' => $citizen->id,
+                'alert' => $request -> alert
             ]);
 
             // Crear los datos del evento para Pusher
