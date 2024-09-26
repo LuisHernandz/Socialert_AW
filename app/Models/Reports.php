@@ -15,6 +15,7 @@ class Reports extends Model
         'calification',
         'latitude',
         'longitude',
+        'alert',
         'type_id',
         'status_id',
         'citizen_id'
