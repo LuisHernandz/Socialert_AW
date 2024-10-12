@@ -29,4 +29,8 @@ class Citizen extends Model
     {
         return $this->hasMany('App\Models\Alert');
     }
+
+    public function contacts(){
+        return $this->belongsToMany('App\Models\Contact');
+    }
 }

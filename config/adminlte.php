@@ -387,14 +387,6 @@ return [
             // 'label' => '2 nuevos',
             'label_color' => 'success', 
         ],
-        [
-            'text' => 'Alertas',
-            'icon' => 'fas fa-fw fa-exclamation-circle',
-            'route' => 'alertas.index',
-            'can' => ['consultar reportes', 'editar reportes', 'eliminar roles'],  
-            // 'label' => '2 nuevos',
-            'label_color' => 'success', 
-        ],
         ['header' => 'OTROS'],
         [
             'text' => 'Mapa General',
