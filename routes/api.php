@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ApiCitizenController;
 use App\Http\Controllers\Api\ApiReportsController;
+use App\Http\Controllers\Api\ApiContactsController;
+use App\Http\Controllers\Api\ApiProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +33,11 @@ Route::middleware('auth:sanctum') -> group(function(){
 
     //Citizens routes
 
+    //Profile
+    Route::get('show-profile',[ApiProfileController::class, 'show']);
+    Route::post('update-profile',[ApiProfileController::class, 'update']);
+    Route::delete('destroy-profile',[ApiProfileController::class, 'destroy']);
+
 
     //Reports routes
     Route::get('/index-reports', [ApiReportsController::class, 'index']);
@@ -39,6 +46,9 @@ Route::middleware('auth:sanctum') -> group(function(){
     Route::post('/store-report', [ApiReportsController::class, 'store']);
     Route::post('/update-report', [ApiReportsController::class, 'update']);
     Route::delete('/destroy-report', [ApiReportsController::class, 'destroy']);
+
+    //Pofile routes
+    Route::post('store-contact', [ApiContactsController::class, 'store']);
 });
 
 
