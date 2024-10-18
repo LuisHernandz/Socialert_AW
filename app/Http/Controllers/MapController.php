@@ -5,31 +5,27 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 
 class MapController extends Controller
 {
     public function mostrarMapa()
     {
-
         $locations = DB::table('reports')->get();
 
         foreach ($locations as $location) {
-
-            $apiUrl = 'https://api.distancematrix.ai/maps/api/geocode/json';
+            $apiUrl = 'https://us1.locationiq.com/v1/reverse.php';
             $response = Http::get($apiUrl, [
-                'latlng' => $location->latitude . ',' . $location->longitude,
-                'language' => 'es',
-                'key' => 'SA7O98LM2XpeP1ITwhEdARwdOJONxkLYkkhsGjk2YF0M9ADZQAxC1LxLBqujOdsF' 
+                'lat' => $location->latitude,
+                'lon' => $location->longitude,
+                'key' => 'PK.90D9F6413C929B1020B3A3533ADB44AC',
+                'format' => 'json'
             ]);
 
             $data = $response->json();
 
-            if ($response->ok() && isset($data['result']) && count($data['result']) > 0) {
-
-                $location->address = $data['result'][0]['formatted_address'];
+            if ($response->ok() && isset($data['display_name'])) {
+                $location->address = $data['display_name'];
             } else {
-
                 $location->address = 'Dirección no disponible';
             }
         }

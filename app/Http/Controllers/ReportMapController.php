@@ -16,20 +16,20 @@ class ReportMapController extends Controller
             return redirect()->route('reportes.index')->with('error', 'Reporte no encontrado.');
         }
 
-        $apiUrl = 'https://api.distancematrix.ai/maps/api/geocode/json';
+        $apiUrl = 'https://us1.locationiq.com/v1/reverse.php';
         $response = Http::get($apiUrl, [
-            'latlng' => $reporte->latitude . ',' . $reporte->longitude,
-            'language' => 'es',
-            'key' => 'SA7O98LM2XpeP1ITwhEdARwdOJONxkLYkkhsGjk2YF0M9ADZQAxC1LxLBqujOdsF'
+            'key' => 'PK.90D9F6413C929B1020B3A3533ADB44AC',
+            'lat' => $reporte->latitude,
+            'lon' => $reporte->longitude,
+            'format' => 'json',
+            'accept-language' => 'es',
         ]);
 
         $data = $response->json();
 
-        if ($response->ok() && isset($data['result']) && count($data['result']) > 0) {
-
-            $reporte->address = $data['result'][0]['formatted_address'];
+        if ($response->ok() && isset($data['display_name'])) {
+            $reporte->address = $data['display_name'];
         } else {
-
             $reporte->address = 'Dirección no disponible';
         }
 

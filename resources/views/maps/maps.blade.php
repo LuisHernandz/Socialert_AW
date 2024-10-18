@@ -11,8 +11,29 @@
             width: 100%;
             height: 500px;
         }
+        .popup {
+            position: absolute;
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            bottom: 12px;
+            left: -50px;
+            min-width: 200px;
+        }
+        .popup:after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: white transparent transparent transparent;
+        }
     </style>
     <div id="map"></div>
+    <div id="popup" class="popup" style="display: none;"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.20.1/ol.js"></script>
     <script>
@@ -39,6 +60,15 @@
                 address: location.address
             });
 
+            var markerStyle = new ol.style.Style({
+                image: new ol.style.Icon({
+                    anchor: [0.5, 1],
+                    src: '/img/posicion.png',
+                    scale: 0.1
+                })
+            });
+
+            marker.setStyle(markerStyle);
             vectorSource.addFeature(marker);
         });
 
@@ -48,26 +78,45 @@
 
         map.addLayer(markerLayer);
 
+        var element = document.getElementById('popup');
+        var popupOverlay = new ol.Overlay({
+            element: element,
+            autoPan: true,
+            autoPanAnimation: {
+                duration: 250
+            }
+        });
+        map.addOverlay(popupOverlay);
+
         map.on('click', function(evt) {
-            map.forEachFeatureAtPixel(evt.pixel, function(feature) {
-                alert('Dirección: ' + feature.get('address'));
+            var feature = map.forEachFeatureAtPixel(evt.pixel, function(feature) {
+                return feature;
             });
+
+            if (feature) {
+                var coordinates = feature.getGeometry().getCoordinates();
+                element.innerHTML = '<b><p>Dirección: </b>' + feature.get('address') + '</p>';
+                element.style.display = 'block';
+                popupOverlay.setPosition(coordinates);
+            } else {
+                element.style.display = 'none';
+                popupOverlay.setPosition(undefined);
+            }
         });
     </script>
 @stop
 
 @section('css')
     <style>
-        aside{
-            /* background-color: #00162C !important; */
+        aside {
             background-color: #08233d !important;
         }
 
-        .layout-navbar-fixed .wrapper .sidebar-dark-primary .brand-link:not([class*="navbar"]){
+        .layout-navbar-fixed .wrapper .sidebar-dark-primary .brand-link:not([class*="navbar"]) {
             background-color: transparent !important;
         }
 
-        .btn-default{
+        .btn-default {
             border: none;
             background-color: inherit;
             box-shadow: none !important;
