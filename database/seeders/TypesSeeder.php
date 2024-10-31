@@ -14,9 +14,10 @@ class TypesSeeder extends Seeder
     public function run(): void
     {
         DB::table('types')->insert([
+            ['name' => 'Alerta'],
             ['name' => 'Emergencia médica'],
             ['name' => 'Enfrentamiento'],
-            ['name' => 'Extersión'],
+            ['name' => 'Extorsión'],
             ['name' => 'Fraude'],
             ['name' => 'Homicidio'],
             ['name' => 'Incidente de tránsito'],
