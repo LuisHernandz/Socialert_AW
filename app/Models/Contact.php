@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Contact extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'phone_number'
+    ];
+
     public $timestamps = false;
 
     public function citizens(){
