@@ -47,8 +47,11 @@ Route::middleware('auth:sanctum') -> group(function(){
     Route::post('/update-report', [ApiReportsController::class, 'update']);
     Route::delete('/destroy-report', [ApiReportsController::class, 'destroy']);
 
-    //Pofile routes
+    //Contacts routes
+    Route::get('index-contacts', [ApiContactsController::class, 'index']);
     Route::post('store-contact', [ApiContactsController::class, 'store']);
+    Route::post('update-contact', [ApiContactsController::class, 'update']);
+    Route::delete('destroy-contact', [ApiContactsController::class, 'destroy']);
 });
 
 
