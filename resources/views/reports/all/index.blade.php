@@ -3,7 +3,10 @@
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+{{-- <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script> --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.11.5/sorting/datetime-moment.js"></script>
+
 
 @section('content_header')
     <h1><b>REPORTES CIUDADANOS</b></h1>
@@ -53,11 +56,20 @@
                         </button>';
             $config = [
                 'language' => [
-                    'url' => 'https://cdn.datatables.net/plug-ins/2.1.5/i18n/es-MX.json'
-                    ],
+                    // 'url' => 'https://cdn.datatables.net/plug-ins/2.1.5/i18n/es-MX.json'
+                    'url' => 'https://cdn.datatables.net/plug-ins/2.1.8/i18n/es-MX.json'
+                ],
+                'order' => [[0, 'desc']], // Orden descendente por la primera columna (ID)
+                'columnDefs' => [
+                    [
+                        'targets' => 0, // Índice de la columna ID
+                        'type' => 'num' // Especifica que se ordene como número
+                    ]
+                ]
             ];
-            @endphp
-
+                        @endphp
+            
+            {{-- :config="$config"  --}}
             <x-adminlte-datatable id="table" :heads="$heads" :config="$config"  class="table table-bordered table-striped">
                 @if($reportes->isEmpty())
                     <tr>
@@ -356,5 +368,14 @@
                 });
             })
         })
+    </script>
+
+    <script>
+        $(document).ready(function() {
+    $.fn.dataTable.moment('D [de] MMMM [de] YYYY [a las] H:mm [hrs]'); // Formato personalizado
+
+    $('#reportesTable').DataTable();
+});
+
     </script>
 @stop
