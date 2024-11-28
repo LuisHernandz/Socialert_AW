@@ -15,6 +15,11 @@ class UsuarioController extends Controller
         return view('aviso.terminos');
     }
 
+    public function avisodeprivacidadmovil()
+    {
+        return view('aviso.avisodeprivacidadmovil');
+    }
+
     public function profile(){
         return view('profile');
     }
