@@ -62,7 +62,13 @@ class ApiReportsController extends Controller {
                 ], 404);
             }
 
-            $citizenReports = Reports::where('citizen_id', $citizen -> id) -> get();
+            $citizenReports = DB::table('reports as r')
+            ->leftJoin('types as t', 'r.type_id', '=', 't.id')
+            ->leftJoin('status as s', 'r.status_id', '=', 's.id')
+            ->leftJoin('users as u', 'r.userAt_id', '=', 'u.id')
+            ->where('r.citizen_id', '=', $citizen -> id)
+            ->select('r.id', 'r.description', 'r.file', 'r.comment', 'r.latitude', 'r.longitude', 'r.updated_at', 't.name as type_name', 's.name as status_name', 'u.name as user_name', 'u.lastname as user_lastname')
+            ->get();
 
             if($citizenReports -> isEmpty()){
                 $data = [
