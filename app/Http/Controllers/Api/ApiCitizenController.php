@@ -50,7 +50,8 @@ class ApiCitizenController extends Controller
                 'phone' => $request -> phone,
                 'gender' => $request -> gender,
                 'curp' => $request -> curp,
-                'user_id' => $newUser -> id
+                'user_id' => $newUser -> id,
+                'fcm_token' => $request -> fcmToken
             ]);
 
             DB::commit();
