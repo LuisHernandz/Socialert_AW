@@ -15,7 +15,7 @@ class FcmService
 
         // Configurar el cliente de Google
         $this->client = new Client();
-        $this->client->setAuthConfig(storage_path('app/firebase/firebase-key.json')); // Ruta al archivo JSON
+        $this->client->setAuthConfig(storage_path('firebase/firebase-key.json')); // Ruta al archivo JSON
         $this->client->addScope('https://www.googleapis.com/auth/firebase.messaging');
     }
 
