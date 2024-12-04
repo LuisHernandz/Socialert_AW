@@ -13,6 +13,7 @@ class Citizen extends Model
         'phone',
         'gender',
         'curp',
+        'fcm_token',
         'user_id'
     ];
 

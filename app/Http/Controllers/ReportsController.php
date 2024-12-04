@@ -4,14 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Reports;
 use App\Models\User;
+use App\Models\Citizen;
+use App\Models\Status;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Services\FcmService;
 
 class ReportsController extends Controller
 {
-    public function __construct()
+
+    protected $fcmService;
+
+    public function __construct(FcmService $fcmService)
     {
+        $this->fcmService = $fcmService;
+
+        // Middleware para permisos
         $this->middleware('can:crear reportes')->only('create');
         $this->middleware('can:editar reportes')->only('update');
         $this->middleware('can:eliminar reportes')->only('destroy');
@@ -41,8 +50,8 @@ class ReportsController extends Controller
             'users.email as user_email',
             'users.created_at as user_created_at',
 
-            'userAt.name as userAt_name',           
-            'userAt.lastname as userAt_lastname',  
+            'userAt.name as userAt_name',
+            'userAt.lastname as userAt_lastname',
             'userAt.email as userAt_email'
         )
         ->leftJoin('types', 'reports.type_id', '=', 'types.id')
@@ -75,6 +84,19 @@ class ReportsController extends Controller
         $reporte->status_id = $request->status_id;
         $reporte->userAt_id = $request->user_id;
         $reporte->save();
+
+        $citizen = Citizen::find($reporte -> citizen_id);
+        $citizen_fcm_token = $citizen -> fcm_token;
+
+        $status = Status::find($reporte -> status_id);
+        $status_name = $status -> name;
+
+        $this->fcmService->sendNotification(
+            $citizen_fcm_token,
+            'Estado del reporte actualizado',
+            'El estado de tu reporte ha cambiado a: ' . $status_name,
+            ['report_id' => 'nada']
+        );
 
         switch ($reporte->status_id) {
             case 2:

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('phone', 10);
             $table->enum('gender', ['M', 'F', 'N']);
             $table->string('curp', 18)->unique();
-
+            $table->string('fcm_token') -> nullable();
             $table->unsignedBigInteger('user_id')->unique();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
